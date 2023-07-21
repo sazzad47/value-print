@@ -16,14 +16,12 @@ import ProductsByCategory from "../pages/productByCategory";
 import Orders from "../user/account/order/list";
 import Transaction from "../user/account/transaction/list";
 import Cart from "../pages/cart";
-import Checkout from "../pages/checkout";
+import CheckoutMessage from "../pages/checkout/Message";
 
 const routes = [
- 
   { path: "/account", component: <Orders /> },
   { path: "/transactions", component: <Transaction /> },
   { path: "/settings", component: <Settings /> },
-  { path: "/checkout", component: <Checkout /> },
 ];
 
 const publicRoutes = [
@@ -43,6 +41,7 @@ const publicRoutes = [
   { path: "/products/list/:category", component: <ProductsByCategory /> },
   { path: "/faq", component: <Faq /> },
   { path: "/cart", component: <Cart /> },
+  { path: "/payment-success", component: <CheckoutMessage /> },
 ];
 
 export { routes, publicRoutes };
