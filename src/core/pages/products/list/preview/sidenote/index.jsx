@@ -47,8 +47,7 @@ const SideNote = ({ features, featuresState }) => {
                     {item.placeholder}
                   </Typography>
                   <Typography className="text-gray-900 text-xs">
-                    {featuresState[item.placeholder] ||
-                      item.value.find((val) => val.is_default)?.title}
+                    {featuresState[item.placeholder] || "-"}
                   </Typography>
                 </div>
               ))}
@@ -78,7 +77,21 @@ const SideNote = ({ features, featuresState }) => {
                     Price
                   </Typography>
                   <Typography className="text-gray-900 text-xs">
-                    ${featuresState.price}
+                   S${featuresState.price}
+                  </Typography>
+                </div>}
+                {featuresState.delivery_charge && <div
+                  style={{
+                    borderLeft: `2px solid #701a75`,
+                    backgroundColor: "#fdf2f8",
+                  }}
+                  className="flex justify-between gap-5 items-center p-3 w-full"
+                >
+                  <Typography className="text-gray-900 text-xs">
+                    Delivery Charge
+                  </Typography>
+                  <Typography className="text-gray-900 text-xs">
+                   S${featuresState.delivery_charge}
                   </Typography>
                 </div>}
              

@@ -6,12 +6,17 @@ import { AiFillDelete } from "react-icons/ai";
 import { BiDuplicate } from "react-icons/bi";
 import { addItem, deleteItem } from "../../state/api/cart";
 import { useNavigate } from "react-router-dom";
+import { useCreatePaymentSessionMutation } from "../../state/api/user";
+import { ColorRing } from "react-loader-spinner";
+
 
 const Cart = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();   
+  const dispatch = useDispatch();
   const { access_token } = useSelector((state) => state.global);
   const cartItems = useSelector((state) => state.cart.items);
+  const [createPaymentSession, { isLoading: sessionLoading }] =
+    useCreatePaymentSessionMutation();
 
   const handleDuplicateItem = (item) => {
     dispatch(addItem(item));
@@ -22,36 +27,60 @@ const Cart = () => {
   };
 
   const totalPrice = cartItems.reduce(
-    (total, item) => total + parseFloat(item.price),
+    (total, item) => total + parseFloat(item.total_amount),
     0
   );
 
+  const createSession = async () => {
+    if (!access_token) return navigate("/login");
+  
+    // Transform the cartItems data into Stripe-compatible line items
+    const stripeLineItems = cartItems.map((item) => ({
+      price_data: {
+        currency: "SGD",
+        product_data: {
+          name: item.name,
+          images: [item.photo],
+        },
+        unit_amount: Math.round((item.total_amount / item.quantity) * 100), 
+      },
+      quantity: item.quantity,
+    }));
+  
+    try {
+      const response = await createPaymentSession({
+        line_items: stripeLineItems,
+        access_token,
+      });
 
-useEffect(() => {
-  const existingCartItems = JSON.parse(localStorage.getItem("cart"));
-  if (existingCartItems && existingCartItems.length > 0) {
-    existingCartItems.forEach((item) => {
-      dispatch(addItem(item));
-    });
-  }
-
-  return () => {
-    localStorage.removeItem("cart");
+      console.log('response', response)
+  
+      if ("data" in response) {
+        window.location.href = response.data.checkout_url;
+      }
+    } catch (error) {
+      // Handle any errors from the API
+      console.error("Error creating Stripe session:", error);
+    }
   };
+  useEffect(() => {
+    const existingCartItems = JSON.parse(localStorage.getItem("cart"));
+    if (existingCartItems && existingCartItems.length > 0) {
+      existingCartItems.forEach((item) => {
+        dispatch(addItem(item));
+      });
+    }
 
-}, [dispatch]);
+    return () => {
+      localStorage.removeItem("cart");
+    };
+  }, [dispatch]);
 
-
-useEffect(() => {
-
+  useEffect(() => {
     const cartItemsJSON = JSON.stringify(cartItems);
     localStorage.setItem("cart", cartItemsJSON);
+  }, [cartItems]);
 
-}, [cartItems]);
-
-
-
-  console.log("cartItems", cartItems);
   return (
     <div>
       {cartItems.length === 0 ? (
@@ -94,7 +123,9 @@ useEffect(() => {
                                 {item.name}
                               </h3>
                               <div className="flex gap-3 items-center">
-                                <Typography className="text-gray-900 font-bold text-xl"> ${item.price} </Typography>
+                                <h3 className="font-bold text-md text-start text-gray-900 mt-0">
+                                  S${item.total_amount}
+                                </h3>
                                 <Tooltip title="Duplicate">
                                   <IconButton
                                     onClick={() => handleDuplicateItem(item)}
@@ -114,53 +145,64 @@ useEffect(() => {
                               </div>
                             </div>
                           </div>
-                           <div className="w-full flex flex-col gap-5 md:gap-0 md:flex-row px-5 md:px-0">
-                           <div className="w-full md:w-[50%] flex flex-col">
-                            <h4 className="text-gray-600 mb-2 md:mb-0 font-bold text-sm text-center md:text-start">
-                              {" "}
-                              Configuration{" "}
-                            </h4>
-                            {Object.entries(item).map(([key, value]) => {
-                              if (
-                                key !== "name" &&
-                                key !== "photo" &&
-                                key !== "price" &&
-                                key !== "quantity"
-                              ) {
-                                return (
-                                  <div key={key}>
-                                    <span className="text-gray-600 text-xs font-medium">
-                                      {key}:
-                                    </span>{" "}
-                                    <span className="text-gray-900 text-xs">
-                                      {value}
-                                    </span>
-                                  </div>
-                                );
-                              }
-                              return null;
-                            })}
-                          </div>
-                          <div className="w-full md:w-[20%] flex flex-col gap-2">
-                          <h4 className="text-gray-600 font-bold text-sm text-center">
-                              {" "}
-                              Quantity{" "}
-                            </h4>
-                            <Typography className="text-gray-900 text-center"> {item.quantity} </Typography>
-                          </div>
-                          <div className="w-full md:w-[30%] flex flex-col gap-2">
-                          <h4 className="text-gray-600 font-bold text-sm text-center">
-                               Delivery Type
-                            </h4>
-                            <div className="text-center px-2 py-1 rounded-full bg-green-700 text-white">
-                             Express
+                          <div className="w-full flex flex-col gap-5 md:gap-0 md:flex-row px-5 md:px-0">
+                            <div className="w-full md:w-[50%] flex flex-col">
+                              <h4 className="text-gray-600 mb-2 md:mb-0 font-bold text-sm text-center md:text-start">
+                                Configuration
+                              </h4>
+                              {Object.entries(item).map(([key, value]) => {
+                                if (
+                                  key !== "name" &&
+                                  key !== "photo" &&
+                                  key !== "price" &&
+                                  key !== "quantity" &&
+                                  key !== "delivery_type" &&
+                                  key !== "deliver_charge" &&
+                                  key !== "total_amount"
+                                ) {
+                                  return (
+                                    <div key={key}>
+                                      <span className="text-gray-600 text-xs font-medium">
+                                        {key}:
+                                      </span>{" "}
+                                      <span className="text-gray-900 text-xs">
+                                        {value}
+                                      </span>
+                                    </div>
+                                  );
+                                }
+                                return null;
+                              })}
                             </div>
-                            <div className="text-center text-gray-900">
-
-                            2 working days (excluding weekends)
+                            <div className="w-full md:w-[30%] flex flex-col gap-2 pl-2">
+                              <Typography className="text-gray-600 font-bold text-sm text-start">
+                                Quantity
+                              </Typography>
+                              <Typography className="text-gray-600 font-bold text-sm text-start">
+                                Total Price
+                              </Typography>
+                              <Typography className="text-gray-600 font-bold text-sm text-start">
+                                Delivery Charge
+                              </Typography>
+                              <Typography className="text-gray-600 font-bold text-sm text-start">
+                                Total
+                              </Typography>
+                            </div>
+                            <div className="w-full md:w-[20%] flex flex-col gap-2">
+                              <Typography className="text-gray-900 text-end pr-2 font-bold">
+                                {item.quantity}
+                              </Typography>
+                              <Typography className="text-gray-900 text-end pr-2 font-bold">
+                                S${item.price}
+                              </Typography>
+                              <Typography className="text-gray-900 text-end pr-2 font-bold">
+                                S${item.deliver_charge}
+                              </Typography>
+                              <Typography className="text-gray-900 text-end pr-2 font-bold">
+                                S${item.total_amount}
+                              </Typography>
                             </div>
                           </div>
-                           </div>
                         </Grid>
                       </Grid>
                     </div>
@@ -169,17 +211,38 @@ useEffect(() => {
               </Grid>
               <Grid item xs={12} md={4}>
                 <div className="w-full bg-white min-h-[50px] p-5 flex flex-col gap-5">
-                  <Typography className="text-center text-gray-900 text-4xl font-bold"> Checkout </Typography>
+                  <Typography className="text-center text-gray-900 text-4xl font-bold">
+                    {" "}
+                    Checkout{" "}
+                  </Typography>
                   <div className="flex justify-between w-full text-gray-900">
-                    <div className="text-xl font-bold"> Total </div> <div className="text-xl font-bold">${totalPrice} </div>
+                    <div className="text-xl font-bold">Grand Total </div>{" "}
+                    <div className="text-xl font-bold">S${totalPrice} </div>
                   </div>
+                  
                   <button
                     className="mb-2 cursor-pointer inline-block rounded bg-fuchsia-900 px-12 pt-4 pb-3.5 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] md:mr-2 md:mb-0"
                     data-te-ripple-init
                     data-te-ripple-color="light"
-                    onClick={()=> navigate(`/${access_token? "checkout": "login"}`)}
+                    onClick={() => createSession()}
                   >
-                    Checkout
+                    {sessionLoading ? (
+                      <ColorRing
+                        visible={true}
+                        height="30"
+                        width="30"
+                        ariaLabel="blocks-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="blocks-wrapper"
+                        colors={[
+                          "#b8c480",
+                          "#B2A3B5",
+                          "#F4442E",
+                          "#51E5FF",
+                          "#429EA6",
+                        ]}
+                      />
+                    ) : "Checkout"}
                   </button>
                 </div>
               </Grid>

@@ -189,10 +189,10 @@ export const userApi = createApi({
       },
     }),
     createPaymentSession: builder.mutation({
-      query: ({ orderData, access_token }) => ({
+      query: ({ line_items, access_token }) => ({
         url: `create-payment/`,
         method: "POST",
-        body: orderData,
+        body:{ line_items },
         headers: {
           "Content-type": "application/json",
           authorization: `Bearer ${access_token}`,

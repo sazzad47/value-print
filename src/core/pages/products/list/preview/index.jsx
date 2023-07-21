@@ -47,11 +47,6 @@ const Preview = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    if (variants && variants.placeholder !== "") {
-      setFeatures((prevFeatures) => [variants, ...prevFeatures]);
-    }
-  }, [variants]);
 
   useEffect(() => {
     if (data) {
@@ -119,6 +114,7 @@ const Preview = () => {
                   setSubvariants={setSubvariants}
                   featuresState={featuresState}
                   setFeaturesState={setFeaturesState}
+                  variants={variants}
                 />
                 <div className="w-full flex justify-end">
                   <button

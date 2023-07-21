@@ -16,6 +16,8 @@ const Price = ({
   featuresState,
   setFeaturesState,
   isOpen,
+  setIsOpenDelivery,
+  deliveryRef
 }) => {
   const theme = useTheme();
   const [selectedQuantity, setSelectedQuantity] = useState("");
@@ -35,7 +37,14 @@ const Price = ({
         quantity: selectedPrice.quantity,
       });
     }
-   
+
+    if (deliveryRef) {
+      setIsOpenDelivery(true)
+      deliveryRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
   
 
@@ -143,11 +152,11 @@ const Price = ({
                     <div className="text-gray-900 flex flex-col gap-2">
                       <Typography className="font-bold">
                         {" "}
-                        ${item.price}
+                        S${item.price}
                       </Typography>
                       <Typography className="text-xs">
                         {" "}
-                        ${(item.price / item.quantity).toFixed(2)}/pc{" "}
+                        S${(item.price / item.quantity).toFixed(2)}/pc{" "}
                       </Typography>
                     </div>
                   </Box>
@@ -189,11 +198,11 @@ const Price = ({
                     <div className="text-gray-900 flex flex-col gap-2">
                       <Typography className="font-bold">
                         {" "}
-                        ${item.price}
+                        S${item.price}
                       </Typography>
                       <Typography className="text-xs">
                         {" "}
-                        ${(item.price / item.quantity).toFixed(2)}/pc{" "}
+                        S${(item.price / item.quantity).toFixed(2)}/pc{" "}
                       </Typography>
                     </div>
                   </Box>
@@ -235,11 +244,11 @@ const Price = ({
                     <div className="text-gray-900 flex flex-col gap-2">
                       <Typography className="font-bold">
                         {" "}
-                        ${item.price}
+                        S${item.price}
                       </Typography>
                       <Typography className="text-xs">
                         {" "}
-                        ${(item.price / item.quantity).toFixed(2)}/pc{" "}
+                        S${(item.price / item.quantity).toFixed(2)}/pc{" "}
                       </Typography>
                     </div>
                   </Box>
@@ -276,11 +285,11 @@ const Price = ({
                   <div className="flex flex-col gap-2">
                     <Typography className="font-bold">
                       {" "}
-                      ${item.price}
+                      S${item.price}
                     </Typography>
                     <Typography className="text-xs">
                       {" "}
-                      ${(item.price / item.quantity).toFixed(2)}/pc{" "}
+                      S${(item.price / item.quantity).toFixed(2)}/pc{" "}
                     </Typography>
                   </div>
                 </Box>
