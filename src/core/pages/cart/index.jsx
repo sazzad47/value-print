@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EmptyCart from "./EmptyCart";
 import { Grid, IconButton, Tooltip, Typography } from "@mui/material";
@@ -51,9 +51,10 @@ const Cart = () => {
       const response = await createPaymentSession({
         line_items: stripeLineItems,
         access_token,
+        metadata: {
+          cart_items: JSON.stringify(cartItems),
+        },
       });
-
-      console.log('response', response)
   
       if ("data" in response) {
         window.location.href = response.data.checkout_url;
@@ -63,23 +64,8 @@ const Cart = () => {
       console.error("Error creating Stripe session:", error);
     }
   };
-  useEffect(() => {
-    const existingCartItems = JSON.parse(localStorage.getItem("cart"));
-    if (existingCartItems && existingCartItems.length > 0) {
-      existingCartItems.forEach((item) => {
-        dispatch(addItem(item));
-      });
-    }
+  
 
-    return () => {
-      localStorage.removeItem("cart");
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
-    const cartItemsJSON = JSON.stringify(cartItems);
-    localStorage.setItem("cart", cartItemsJSON);
-  }, [cartItems]);
 
   return (
     <div>
@@ -174,21 +160,23 @@ const Cart = () => {
                                 return null;
                               })}
                             </div>
-                            <div className="w-full md:w-[30%] flex flex-col gap-2 pl-2">
-                              <Typography className="text-gray-600 font-bold text-sm text-start">
+                            <div className="w-full md:w-[50%] flex pl-0 md:pl-2">
+
+                            <div className="w-full md:w-[60%] flex flex-col gap-2">
+                              <Typography className="text-gray-600 whitespace-nowrap font-bold text-sm text-start">
                                 Quantity
                               </Typography>
-                              <Typography className="text-gray-600 font-bold text-sm text-start">
-                                Total Price
+                              <Typography className="text-gray-600 whitespace-nowrap font-bold text-sm text-start">
+                                Subtotal
                               </Typography>
-                              <Typography className="text-gray-600 font-bold text-sm text-start">
+                              <Typography className="text-gray-600 whitespace-nowrap font-bold text-sm text-start">
                                 Delivery Charge
                               </Typography>
-                              <Typography className="text-gray-600 font-bold text-sm text-start">
+                              <Typography className="text-gray-600 whitespace-nowrap font-bold text-sm text-start">
                                 Total
                               </Typography>
                             </div>
-                            <div className="w-full md:w-[20%] flex flex-col gap-2">
+                            <div className="w-full md:w-[40%] flex flex-col gap-2">
                               <Typography className="text-gray-900 text-end pr-2 font-bold">
                                 {item.quantity}
                               </Typography>
@@ -201,6 +189,7 @@ const Cart = () => {
                               <Typography className="text-gray-900 text-end pr-2 font-bold">
                                 S${item.total_amount}
                               </Typography>
+                            </div>
                             </div>
                           </div>
                         </Grid>
