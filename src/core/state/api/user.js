@@ -229,6 +229,16 @@ export const userApi = createApi({
         },
       }),
     }),
+    sendContactEmail: builder.mutation({
+      query: ({formData}) => ({
+        url: "send-contact-form-email/",
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-type": "application/json",
+        },
+      }),
+    }),
   }),
 });
   
@@ -252,5 +262,6 @@ export const {
   useGetOrdersQuery,
   useGetTransactionsQuery,
   useUpdateOrderMutation,
+  useSendContactEmailMutation
 
 } = userApi;
