@@ -17,9 +17,11 @@ import Orders from "../user/account/order/list";
 import Transaction from "../user/account/transaction/list";
 import Cart from "../pages/cart";
 import CheckoutMessage from "../pages/checkout/Message";
+import OrdersDetails from "../pages/orderDetails";
 
 const routes = [
   { path: "/account", component: <Orders /> },
+  { path: "/account/orders/:id", component: <OrdersDetails /> },
   { path: "/transactions", component: <Transaction /> },
   { path: "/settings", component: <Settings /> },
 ];
