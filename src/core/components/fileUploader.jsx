@@ -48,16 +48,18 @@ const ImageUploader = ({
             <h3 className="text-xl text-gray-900 font-bold">
               Uplaod your file here
             </h3>
-            <div className="w-full flex justify-center my-5">
-              <div className="w-[10rem] h-[15vh] relative group">
-                <img
-                  className="absolute w-full h-full"
-                  src={featuresState.artwork}
-                  alt="uploaded"
-                />
-                <section className="hidden group-hover:flex bg-black-100 flex-col rounded-md text-xs break-words w-full h-full z-20 absolute top-0 py-2 px-3"></section>
+            {featuresState.artwork && (
+              <div className="w-full flex justify-center my-5">
+                <div className="w-[10rem] h-[15vh] relative group">
+                  <img
+                    className="absolute w-full h-full"
+                    src={featuresState.artwork}
+                    alt="uploaded"
+                  />
+                  <section className="hidden group-hover:flex bg-black-100 flex-col rounded-md text-xs break-words w-full h-full z-20 absolute top-0 py-2 px-3"></section>
+                </div>
               </div>
-            </div>
+            )}
 
             <Button
               id="button"
