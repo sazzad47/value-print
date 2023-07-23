@@ -27,9 +27,6 @@ const About = () => {
           </p>
           <h2 className="mb-5 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
             One-Stop Destination For Quick Printing
-            <span className="inline-block text-deep-purple-accent-400">
-              is real
-            </span>
           </h2>
 
           <div className="w-full h-full flex gap-4">
