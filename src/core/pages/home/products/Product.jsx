@@ -35,36 +35,36 @@ const Product = ({ product }) => {
 
   return (
     <div className="w-full h-full max-w-sm bg-pink-100 border border-gray-200 rounded-lg shadow-[0_4px_9px_-4px_#3b71ca] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-      <div className="w-full h-[15rem] relative">
-        <Link to="/">
-          <img
-            className="w-full h-full absolute"
-            src={product.photo}
-            alt={product.name}
-          />
-        </Link>
-      </div>
-
-      <div className="px-5 py-5 h-[calc(100%-15rem)] flex flex-col justify-between">
-        <Link className="no-underline" to="/">
-          <h5 className="no-underline text-xl font-semibold tracking-tight text-gray-900">
-            {product.name}
-          </h5>
-        </Link>
-        <div className="flex items-center mt-2.5 mb-5">{renderRatingStars()}</div>
-        <Typography className="text-xs italic text-gray-900">Starting at</Typography>
-        <div className="flex items-center justify-between">
-          <span className="text-xl font-bold text-gray-900 dark:text-white">
-            ${product.starting_price}/{product.starting_quantity}pc
-          </span>
-          <Link
-            to={`/products/list/${product.id}`}
-            className="text-white no-underline bg-fuchsia-900 hover:bg-fuchsia-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Order Now
+      <Link to={`/products/list/${product.id}`} className="no-underline">
+        <div className="w-full h-[15rem] relative">
+          <Link to={`/products/list/${product.id}`}>
+            <img
+              className="w-full h-full absolute"
+              src={product.photo}
+              alt={product.name}
+            />
           </Link>
         </div>
-      </div>
+
+        <div className="px-2 py-5 h-[calc(100%-15rem)] flex flex-col justify-between">
+          <Link className="no-underline" to="/">
+            <h5 className="no-underline text-xl font-semibold tracking-tight text-gray-900">
+              {product.name}
+            </h5>
+          </Link>
+          <div className="flex items-center mt-2.5 mb-5">
+            {renderRatingStars()}
+          </div>
+          <Typography className="text-xs italic text-gray-900">
+            Starting at
+          </Typography>
+          <div className="flex items-center justify-between">
+            <span className="text-xl font-bold text-gray-900 dark:text-white">
+              ${product.starting_price}/{product.starting_quantity}pc
+            </span>
+          </div>
+        </div>
+      </Link>
     </div>
   );
 };
