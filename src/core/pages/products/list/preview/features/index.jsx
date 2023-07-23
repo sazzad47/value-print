@@ -237,6 +237,7 @@ const Features = ({
             featuresState={featuresState}
             setFeaturesState={setFeaturesState}
             price={price}
+            data={data}
           />
         </div>
       </Box>

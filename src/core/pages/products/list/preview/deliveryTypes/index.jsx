@@ -10,6 +10,7 @@ const DeliveryType = ({
   featuresState,
   setFeaturesState,
   price,
+  data
 }) => {
 
   const types = [
@@ -59,6 +60,11 @@ const DeliveryType = ({
     return Math.max(20, Math.min(30, deliveryCharge));
   }
 
+  // Filter the types array based on the condition of data.name containing "Business Cards"
+  const filteredTypes = data.name?.includes("Business Card")
+    ? types.slice(1, 2) // Get the second item of the array as an array itself
+    : types; // Use the original types array
+
   return (
     <div className="flex flex-col gap-3">
       <div className="relative h-[5rem]">
@@ -66,7 +72,7 @@ const DeliveryType = ({
       </div>
       <Collapse isOpened={isOpenDelivery}>
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-3 px-5 mt-[1rem]">
-          {types.map((item, index) => (
+          {filteredTypes.map((item, index) => (
             <Box
               key={index}
               sx={{
