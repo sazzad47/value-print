@@ -3,11 +3,16 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import { AiOutlineSketch, AiOutlineCloudUpload } from "react-icons/ai";
 import ChangeService from "./ChangeService";
 
-const SideNote = ({ features, featuresState }) => {
+const SideNote = ({ featuresState }) => {
   const location = useLocation();
   const { pathname } = location;
   const [searchParams] = useSearchParams();
   const query = searchParams.get("service");
+
+  // Helper function to replace underscores with spaces and capitalize words
+const formatKey = (key) => {
+  return key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+};
 
   return (
     <>
@@ -34,67 +39,28 @@ const SideNote = ({ features, featuresState }) => {
           </div>
           <div className="flow-root">
             <div className="w-full flex flex-col gap-3">
-              {features?.map((item) => (
-                <div
-                  key={item.placeholder}
-                  style={{
-                    borderLeft: `2px solid #701a75`,
-                    backgroundColor: "#fdf2f8",
-                  }}
-                  className="flex justify-between gap-5 items-center p-3 w-full"
-                >
-                  <Typography className="text-gray-900 text-xs">
-                    {item.placeholder}
-                  </Typography>
-                  <Typography className="text-gray-900 text-xs">
-                    {featuresState[item.placeholder] || "-"}
-                  </Typography>
-                </div>
-              ))}
-            
-                {featuresState.quantity && <div
-                  style={{
-                    borderLeft: `2px solid #701a75`,
-                    backgroundColor: "#fdf2f8",
-                  }}
-                  className="flex justify-between gap-5 items-center p-3 w-full"
-                >
-                  <Typography className="text-gray-900 text-xs">
-                    Quantity
-                  </Typography>
-                  <Typography className="text-gray-900 text-xs">
-                    {featuresState.quantity}
-                  </Typography>
-                </div>}
-                {featuresState.price && <div
-                  style={{
-                    borderLeft: `2px solid #701a75`,
-                    backgroundColor: "#fdf2f8",
-                  }}
-                  className="flex justify-between gap-5 items-center p-3 w-full"
-                >
-                  <Typography className="text-gray-900 text-xs">
-                    Price
-                  </Typography>
-                  <Typography className="text-gray-900 text-xs">
-                   S${featuresState.price}
-                  </Typography>
-                </div>}
-                {featuresState.delivery_charge && <div
-                  style={{
-                    borderLeft: `2px solid #701a75`,
-                    backgroundColor: "#fdf2f8",
-                  }}
-                  className="flex justify-between gap-5 items-center p-3 w-full"
-                >
-                  <Typography className="text-gray-900 text-xs">
-                    Delivery Charge
-                  </Typography>
-                  <Typography className="text-gray-900 text-xs">
-                   S${featuresState.delivery_charge}
-                  </Typography>
-                </div>}
-             
+              {Object.entries(featuresState).map(([key, value]) => {
+                if (key !== "photo" && key !== "artwork") {
+                  return (
+                    <div
+                      key={key}
+                      style={{
+                        borderLeft: `2px solid #701a75`,
+                        backgroundColor: "#fdf2f8",
+                      }}
+                      className="flex justify-between gap-5 items-center p-3 w-full"
+                    >
+                      <Typography className="text-gray-900 text-xs">
+                      {formatKey(key)}
+                      </Typography>
+                      <Typography className="text-gray-900 text-xs">
+                        {value}
+                      </Typography>
+                    </div>
+                  );
+                }
+                return null;
+              })}
             </div>
           </div>
         </div>

@@ -102,7 +102,7 @@ const Preview = () => {
                   setFeaturesState={setFeaturesState}
                   variants={variants}
                 />
-                {featuresState.deliver_charge && (
+                {featuresState.delivery_charge && (
                   <div className="w-full flex justify-end">
                     <UploadArtwork
                       featuresState={featuresState}

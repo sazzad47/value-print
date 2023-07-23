@@ -36,7 +36,7 @@ const DeliveryType = ({
     setFeaturesState({
       ...featuresState,
       delivery_type: item.title,
-      deliver_charge: item.charge,
+      delivery_charge: item.charge,
       total_amount: parseFloat(featuresState.price) + parseFloat(item.charge),
     });
   };
