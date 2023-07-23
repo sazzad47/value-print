@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mode: "dark",
   access_token: null,
+  fileLoading: false,
   notification: {show: false, message: null},
   alert: {show: false, title: null, text: null, icon: null, showConfirmButton: true, confirmButtonText: null, onConfirmClick: null},
   category: {isDeleted: false, isEdited: false, isCreated: false},
@@ -28,6 +29,9 @@ export const globalSlice = createSlice({
     handleAlert: (state, action) => {
       state.alert = action.payload
     },
+    handleFileLoading: (state, action) => {
+      state.fileLoading = action.payload
+    },
     setCategory: (state, action) => {
       state.category = {
         ...state.category,
@@ -37,6 +41,6 @@ export const globalSlice = createSlice({
   },
 });
 
-export const { setMode, setUserToken, unSetUserToken, handleNotification, handleAlert, setCategory } = globalSlice.actions;
+export const { setMode, setUserToken, unSetUserToken, handleNotification, handleAlert, setCategory, handleFileLoading } = globalSlice.actions;
 
 export default globalSlice.reducer;

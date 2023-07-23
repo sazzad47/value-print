@@ -146,7 +146,8 @@ const Cart = () => {
                                   key !== "quantity" &&
                                   key !== "delivery_type" &&
                                   key !== "deliver_charge" &&
-                                  key !== "total_amount"
+                                  key !== "total_amount" &&
+                                  key !== "artwork"
                                 ) {
                                   return (
                                     <div key={key}>

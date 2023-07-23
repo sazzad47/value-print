@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../../../components/Header";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useGetProductQuery } from "../../../../state/api/product";
 import { Oval } from "react-loader-spinner";
 import Description from "./description";
 import Features from "./features";
 import SideNote from "./sidenote";
 import Service from "./service";
-import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../../../../state/api/cart";
+import UploadArtwork from "./UploadArtwork";
 
 const Preview = () => {
   const params = useParams();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id } = params;
   const [searchParams] = useSearchParams();
   const query = searchParams.get("service");
-  const cartItems = useSelector((state) => state.cart.items);
-
-  console.log("cartItems", cartItems);
 
   const { data, isLoading: isGetProductLoading } = useGetProductQuery({ id });
   const [features, setFeatures] = React.useState([...(data?.features || [])]);
@@ -31,13 +25,6 @@ const Preview = () => {
   ]);
   const [featuresState, setFeaturesState] = useState({});
 
-  const handleAddToCart = () => {
-    dispatch(addItem(featuresState));
-    navigate("/cart");
-  };
-
-  console.log("data", data);
-
   useEffect(() => {
     if (data) {
       setFeatures([...data.features]);
@@ -47,17 +34,16 @@ const Preview = () => {
     }
   }, [data]);
 
-
   useEffect(() => {
     if (data) {
-      setFeaturesState(prevState => ({
+      setFeaturesState((prevState) => ({
         ...prevState,
         name: data.name,
         photo: data.photo,
       }));
     }
   }, [data]);
-  
+
   return (
     <>
       {isGetProductLoading ? (
@@ -116,16 +102,14 @@ const Preview = () => {
                   setFeaturesState={setFeaturesState}
                   variants={variants}
                 />
-                <div className="w-full flex justify-end">
-                  <button
-                    className="mb-2 cursor-pointer inline-block rounded bg-fuchsia-900 px-12 pt-4 pb-3.5 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] md:mr-2 md:mb-0"
-                    data-te-ripple-init
-                    data-te-ripple-color="light"
-                    onClick={handleAddToCart}
-                  >
-                    Add to cart
-                  </button>
-                </div>
+                {featuresState.deliver_charge && (
+                  <div className="w-full flex justify-end">
+                    <UploadArtwork
+                      featuresState={featuresState}
+                      setFeaturesState={setFeaturesState}
+                    />
+                  </div>
+                )}
               </div>
               <div className="hidden sticky min-w-[30%] min-h-[60vh] top-0 md:flex justify-center items-center">
                 <SideNote features={features} featuresState={featuresState} />

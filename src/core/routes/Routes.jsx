@@ -18,6 +18,7 @@ import Transaction from "../user/account/transaction/list";
 import Cart from "../pages/cart";
 import CheckoutMessage from "../pages/checkout/Message";
 import OrdersDetails from "../pages/orderDetails";
+import UploadArtwork from "../pages/products/list/preview/UploadArtwork";
 
 const routes = [
   { path: "/account", component: <Orders /> },
@@ -44,6 +45,7 @@ const publicRoutes = [
   { path: "/faq", component: <Faq /> },
   { path: "/cart", component: <Cart /> },
   { path: "/payment-success", component: <CheckoutMessage /> },
+  { path: "/upload-artwork", component: <UploadArtwork /> },
 ];
 
 export { routes, publicRoutes };
