@@ -2,7 +2,7 @@ import * as React from "react";
 import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { Typography, useTheme } from "@mui/material";
+import { Typography } from "@mui/material";
 import Slide from "@mui/material/Slide";
 import ImageUploader from "../../../../components/fileUploader";
 import { useState } from "react";
@@ -14,16 +14,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function UploadArtwork({ featuresState, setFeaturesState }) {
+export default function UploadArtwork({ featuresState, setFeaturesState, open, setOpen }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
   const [errorMessage, setErrorMessage] = useState({ artwork: "" });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -35,13 +30,6 @@ export default function UploadArtwork({ featuresState, setFeaturesState }) {
 
   return (
     <div>
-      <div
-        onClick={handleClickOpen}
-        style={{ backgroundColor: theme.palette.primary[700] }}
-        className="rounded-md px-3 py-2 text-center cursor-pointer"
-      >
-        Upload Artwork Files
-      </div>
       <Dialog
         fullScreen
         open={open}

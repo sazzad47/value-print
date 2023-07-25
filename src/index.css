@@ -97,6 +97,18 @@ body {
   transform: rotate(90deg) translate(10px, 0);
 }
 
+.input-dropdown.active .arrow-input {
+  transform: rotate(45deg) translate(-5px, -5px);
+}
+
+.input-dropdown.active .arrow-input:before {
+  transform: translate(10px, 0);
+}
+
+.input-dropdown.active .arrow-input:after {
+  transform: rotate(90deg) translate(10px, 0);
+}
+
 
 .arrow {
   width: 13px;
@@ -124,6 +136,37 @@ body {
 }
 
 .arrow:after {
+  position: absolute;
+  transform: rotate(90deg);
+  top: -5px;
+  left: 5px;
+}
+.arrow-input {
+  width: 13px;
+  height: 17px;
+  display: inline-block;
+  position: relative;
+  bottom: -5px;
+  margin-right: 10px;
+  transition: 0.4s ease;
+  margin-top: 2px;
+  text-align: left;
+  transform: rotate(45deg);
+  float: right;
+}
+
+.arrow-input:before,
+.arrow-input:after {
+  position: absolute;
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 3px;
+  background-color: #9ca3af;
+  transition: 0.4s ease;
+}
+
+.arrow-input:after {
   position: absolute;
   transform: rotate(90deg);
   top: -5px;
@@ -275,4 +318,59 @@ select {
 .user-dashboard-menu-exit-active {
   transform: translateX(-110%) !important;
   transition: all var(--speed) ease !important;
+}
+
+.optionHeading {
+  border-bottom: 3px solid #f472b6;
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  top: -30px;
+  overflow: hidden;
+}
+.optionHeading span {
+ background-color: #f472b6;
+ color: white;
+ padding: 0 20px;
+ display: inline-block;
+ z-index: 1;
+ position: relative;
+ 
+}
+.optionHeading span::after {
+ position: absolute;
+ content: "";
+ width: 34%;
+ height: 100%;
+ background-color: #f472b6;
+ z-index: -1;
+ transform: rotate(45deg);
+}
+.quantityHeading {
+  border-bottom: 3px solid #f472b6;
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  top: -30px;
+  overflow: hidden;
+}
+.quantityHeading span {
+ background-color: #f472b6;
+ color: white;
+ padding: 0 20px;
+ display: inline-block;
+ z-index: 1;
+ position: relative;
+ 
+}
+.quantityHeading span::after {
+ position: absolute;
+ content: "";
+ width: 61px;
+ height: 100%;
+ background-color: #f472b6;
+ z-index: -1;
+ transform: rotate(45deg);
 }

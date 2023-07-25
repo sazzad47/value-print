@@ -7,7 +7,7 @@ import Description from "./description";
 import Features from "./features";
 import SideNote from "./sidenote";
 import Service from "./service";
-import UploadArtwork from "./UploadArtwork";
+import GeneralFeatures from "./generalFeatures";
 
 const Preview = () => {
   const params = useParams();
@@ -90,25 +90,32 @@ const Preview = () => {
                     setServices={setServices}
                   />
                 )}
-                <Features
-                  data={data}
-                  price={price}
-                  setPrice={setPrice}
-                  features={features}
-                  setFeatures={setFeatures}
-                  subvariants={subvariants}
-                  setSubvariants={setSubvariants}
-                  featuresState={featuresState}
-                  setFeaturesState={setFeaturesState}
-                  variants={variants}
-                />
-                {featuresState.delivery_charge && (
-                  <div className="w-full flex justify-end">
-                    <UploadArtwork
-                      featuresState={featuresState}
-                      setFeaturesState={setFeaturesState}
-                    />
-                  </div>
+                {variants?.placeholder === "" ? (
+                  <GeneralFeatures
+                    data={data}
+                    price={price}
+                    setPrice={setPrice}
+                    features={features}
+                    setFeatures={setFeatures}
+                    subvariants={subvariants}
+                    setSubvariants={setSubvariants}
+                    featuresState={featuresState}
+                    setFeaturesState={setFeaturesState}
+                    variants={variants}
+                  />
+                ) : (
+                  <Features
+                    data={data}
+                    price={price}
+                    setPrice={setPrice}
+                    features={features}
+                    setFeatures={setFeatures}
+                    subvariants={subvariants}
+                    setSubvariants={setSubvariants}
+                    featuresState={featuresState}
+                    setFeaturesState={setFeaturesState}
+                    variants={variants}
+                  />
                 )}
               </div>
               <div className="hidden sticky min-w-[30%] min-h-[60vh] top-0 md:flex justify-center items-center">

@@ -27,7 +27,7 @@ const Cart = () => {
   };
 
   const totalPrice = cartItems.reduce(
-    (total, item) => total + parseFloat(item.total_amount),
+    (total, item) => total + parseFloat(item.price),
     0
   );
   console.log('cartItems', cartItems)
@@ -42,7 +42,7 @@ const Cart = () => {
           name: item.name,
           images: [item.photo],
         },
-        unit_amount: Math.round((item.total_amount / item.quantity) * 100), 
+        unit_amount: Math.round((item.price / item.quantity) * 100), 
       },
       quantity: item.quantity,
     }));
@@ -67,7 +67,7 @@ const Cart = () => {
     }
   };
   
- 
+  console.log('cart', cartItems)
 
   return (
     <div>
@@ -112,7 +112,7 @@ const Cart = () => {
                               </h3>
                               <div className="flex gap-3 items-center">
                                 <h3 className="font-bold text-md text-start text-gray-900 mt-0">
-                                  S${item.total_amount}
+                                  S${item.price}
                                 </h3>
                                 <Tooltip title="Duplicate">
                                   <IconButton
@@ -145,8 +145,6 @@ const Cart = () => {
                                   key !== "price" &&
                                   key !== "quantity" &&
                                   key !== "delivery_type" &&
-                                  key !== "delivery_charge" &&
-                                  key !== "total_amount" &&
                                   key !== "artwork"
                                 ) {
                                   return (
@@ -170,13 +168,10 @@ const Cart = () => {
                                 Quantity
                               </Typography>
                               <Typography className="text-gray-600 whitespace-nowrap font-bold text-sm text-start">
-                                Subtotal
+                                Delivery Type
                               </Typography>
                               <Typography className="text-gray-600 whitespace-nowrap font-bold text-sm text-start">
-                                Delivery Charge
-                              </Typography>
-                              <Typography className="text-gray-600 whitespace-nowrap font-bold text-sm text-start">
-                                Total
+                                Price
                               </Typography>
                             </div>
                             <div className="w-full md:w-[40%] flex flex-col gap-2">
@@ -184,13 +179,10 @@ const Cart = () => {
                                 {item.quantity}
                               </Typography>
                               <Typography className="text-gray-900 text-end pr-2 font-bold">
+                                {item.delivery_type}
+                              </Typography>
+                              <Typography className="text-gray-900 text-end pr-2 font-bold">
                                 S${item.price}
-                              </Typography>
-                              <Typography className="text-gray-900 text-end pr-2 font-bold">
-                                S${item.delivery_charge}
-                              </Typography>
-                              <Typography className="text-gray-900 text-end pr-2 font-bold">
-                                S${item.total_amount}
                               </Typography>
                             </div>
                             </div>

@@ -5,10 +5,9 @@ import Placeholder from "../../../../../components/Placeholder";
 import Customize from "./Customize";
 import { AiOutlineFileImage } from "react-icons/ai";
 import { Collapse } from "react-collapse";
-import Price from "../price";
-import DeliveryType from "../deliveryTypes";
 import Subvariants from "../subvariants";
 import Variants from "../variants";
+import GeneralPrice from "../generalPrice";
 
 const Features = ({
   data,
@@ -32,7 +31,6 @@ const Features = ({
   const [isOpenSubvariants, setIsOpenSubvariants] = useState(false);
   const [subVariantIndex, setSubVariantIndex] = useState(null);
   const [isOpenPrice, setIsOpenPrice] = useState(false);
-  const [isOpenDelivery, setIsOpenDelivery] = useState(false);
   const [selectedOption, setSelectedOption] = useState({});
 
   const handleBoxClick = (placeholder, title, index) => {
@@ -220,25 +218,25 @@ const Features = ({
         </div>
 
         <div ref={priceRef} className="h-auto">
-          <Price
-            data={data}
-            isOpen={isOpenPrice}
-            price={price}
-            setPrice={setPrice}
-            featuresState={featuresState}
-            setFeaturesState={setFeaturesState}
-            setIsOpenDelivery={setIsOpenDelivery}
-            deliveryRef={deliveryRef}
-          />
-        </div>
-        <div ref={deliveryRef}>
-          <DeliveryType
-            isOpenDelivery={isOpenDelivery}
-            featuresState={featuresState}
-            setFeaturesState={setFeaturesState}
-            price={price}
-            data={data}
-          />
+          <div className="flex flex-col gap-3">
+            <div className="relative h-[5rem]">
+              <Placeholder text="Quantity" />
+            </div>
+            <Collapse isOpened={isOpenPrice}>
+              <div className="px-[20px] py-[20px]">
+
+              <GeneralPrice
+                data={data}
+                isOpen={isOpenPrice}
+                price={price}
+                setPrice={setPrice}
+                featuresState={featuresState}
+                setFeaturesState={setFeaturesState}
+                deliveryRef={deliveryRef}
+              />
+              </div>
+            </Collapse>
+          </div>
         </div>
       </Box>
     </Box>
