@@ -1,14 +1,6 @@
-import React, { useRef, useState } from "react";
-import { Box, Grid, Paper, Typography, useTheme } from "@mui/material";
-import Ribbon from "../../../../../components/Ribbon";
-import Placeholder from "../../../../../components/Placeholder";
+import React from "react";
+import { Box, Grid, Paper } from "@mui/material";
 import Customize from "./Customize";
-import { AiOutlineFileImage } from "react-icons/ai";
-import { Collapse } from "react-collapse";
-import Price from "../price";
-import DeliveryType from "../deliveryTypes";
-import Subvariants from "../subvariants";
-import Variants from "../variants";
 import GeneralPlaceholer from "../../../../../components/GeneralPlaceholer";
 import Dropdown from "./Dropdown";
 import GeneralPrice from "../generalPrice";
@@ -25,58 +17,6 @@ const GeneralFeatures = ({
   featuresState,
   setFeaturesState,
 }) => {
-  const theme = useTheme();
-  const priceRef = useRef(null);
-  const featureDivRef = useRef(null);
-  const variantsRef = useRef(null);
-  const subvariantsRef = useRef(null);
-  const deliveryRef = useRef(null);
-  const [isOpenVariants, setIsOpenVariants] = useState(false);
-  const [isOpenSubvariants, setIsOpenSubvariants] = useState(false);
-  const [subVariantIndex, setSubVariantIndex] = useState(null);
-  const [isOpenPrice, setIsOpenPrice] = useState(false);
-  const [isOpenDelivery, setIsOpenDelivery] = useState(false);
-  const [selectedOption, setSelectedOption] = useState({});
-
-  const handleBoxClick = (placeholder, title, index) => {
-    setFeaturesState((prevFeaturesState) => ({
-      ...prevFeaturesState,
-      [placeholder]: title,
-    }));
-
-    setSelectedOption((prevSelectedOption) => ({
-      ...prevSelectedOption,
-      [placeholder]: title,
-    }));
-
-    const nextPlaceholderIndex = index + 1;
-    const nextOptionsContainer = document.getElementById(
-      `options-container-${nextPlaceholderIndex}`
-    );
-
-    if (nextOptionsContainer) {
-      nextOptionsContainer.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    } else if (nextPlaceholderIndex === features.length) {
-      if (data.variants.placeholder !== "") {
-        setIsOpenVariants(true);
-        variantsRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      } else {
-        setIsOpenPrice(true);
-        priceRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    }
-  };
-
-  console.log("features", features);
 
   return (
     <Box
@@ -142,13 +82,10 @@ const GeneralFeatures = ({
           <Grid container className="w-full">
             <GeneralPrice 
               data={data}
-              isOpen={isOpenPrice}
               price={price}
               setPrice={setPrice}
               featuresState={featuresState}
               setFeaturesState={setFeaturesState}
-              setIsOpenDelivery={setIsOpenDelivery}
-              deliveryRef={deliveryRef}
             />
           </Grid>
         </div>
