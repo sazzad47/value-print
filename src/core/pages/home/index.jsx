@@ -33,9 +33,9 @@ const Home = () => {
       </div>
       <Reviews />
       <WhyLove />
+      <Quotation/>
       <Faq/>
       {/* <Blogs/> */}
-      <Quotation/>
       <Contact />
       <BottomBanner />
     </div>

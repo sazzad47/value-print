@@ -4,7 +4,7 @@ import Information from "./Faqs";
 
 const Faq = () => {
   return (
-    <div className="flex flex-col relative">
+    <div className="flex flex-col relative mb-[3rem]">
       <div className="w-full px-[1rem] md:px-[5rem] flex flex-col gap-5 items-center">
         <div className="w-full text-center text-gray-900 mt-[3rem]">
           <Typography className="text-3xl font-bold text-center text-fuchsia-900">
