@@ -10,8 +10,8 @@ import CategoryInfo from "./CategoryInfo";
 const ProductsByCategory = () => {
   const params = useParams();
   const { category } = params;
-  const { data, isLoading, refetch, isFetching } = useGetProductsByCategoryQuery({ category });
-  
+  const { data, isLoading, refetch, isFetching } = useGetProductsByCategoryQuery({category})
+  console.log('data', data)
   useEffect(()=> {
     refetch();
   },[category, refetch])

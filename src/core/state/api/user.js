@@ -239,6 +239,16 @@ export const userApi = createApi({
         },
       }),
     }),
+    sendQuoteEmail: builder.mutation({
+      query: ({formData}) => ({
+        url: "send-quote-req-email/",
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-type": "application/json",
+        },
+      }),
+    }),
   }),
 });
   
@@ -262,6 +272,7 @@ export const {
   useGetOrdersQuery,
   useGetTransactionsQuery,
   useUpdateOrderMutation,
-  useSendContactEmailMutation
+  useSendContactEmailMutation,
+  useSendQuoteEmailMutation,
 
 } = userApi;

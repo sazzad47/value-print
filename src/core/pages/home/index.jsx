@@ -8,6 +8,9 @@ import BottomBanner from "./bottomBanner";
 import WhyLove from "./WhyLove";
 import About from "./About";
 import { useLocation } from "react-router-dom";
+import Quotation from "./quote";
+import Faq from "./faq";
+// import Blogs from "./blogs";
 
 const Home = () => {
   const location = useLocation();
@@ -30,6 +33,9 @@ const Home = () => {
       </div>
       <Reviews />
       <WhyLove />
+      <Faq/>
+      {/* <Blogs/> */}
+      <Quotation/>
       <Contact />
       <BottomBanner />
     </div>

@@ -40,13 +40,13 @@ const ImageUploader = ({
           <input
             id="hidden-input"
             type="file"
-            accept="image/*"
+            accept=".pdf,.jpeg,.jpg,.png,.psd,.eps,.tiff,.ai,image/*"
             className="hidden"
             onChange={handleFileChange}
           />
           <div className="min-h-[20vh] flex flex-col items-center justify-center gap-3">
             <h3 className="text-xl text-gray-900 font-bold">
-              Uplaod your file here
+              Upload your file here
             </h3>
             {featuresState.artwork && (
               <div className="w-full flex justify-center my-5">

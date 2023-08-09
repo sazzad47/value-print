@@ -19,6 +19,7 @@ import Cart from "../pages/cart";
 import CheckoutMessage from "../pages/checkout/Message";
 import OrdersDetails from "../pages/orderDetails";
 import UploadArtwork from "../pages/products/list/preview/UploadArtwork";
+import QuotationDetails from "../pages/home/quote/details";
 
 const routes = [
   { path: "/account", component: <Orders /> },
@@ -46,6 +47,7 @@ const publicRoutes = [
   { path: "/cart", component: <Cart /> },
   { path: "/payment-success", component: <CheckoutMessage /> },
   { path: "/upload-artwork", component: <UploadArtwork /> },
+  { path: "/quotation/form", component: <QuotationDetails /> },
 ];
 
 export { routes, publicRoutes };

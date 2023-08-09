@@ -57,8 +57,12 @@ const GeneralPrice = ({
     // Ensure the delivery charge is within the desired range (0 to 10)
     return Math.max(20, Math.min(30, deliveryCharge));
   }
+  
+  const thirtyPercentIndex = Math.ceil(price?.length * 0.3);
+  const thirtyPercentPrice = price?.slice(0, thirtyPercentIndex);
 
-  console.log("featuresState", featuresState);
+  console.log("featuresState", price);
+  
   return (
     <>
       <div className="w-full flex justify-between my-[2rem]">
@@ -71,7 +75,7 @@ const GeneralPrice = ({
             </Typography>
             <Typography className="text-gray-900 font-semibold text-2xl">
               {" "}
-              Singapure City{" "}
+              Singapore City{" "}
             </Typography>
           </div>
         </div>
@@ -133,7 +137,7 @@ const GeneralPrice = ({
                   2 working days (excluding weekends)
                 </p>
               </div>
-              {price.map((item, index) => (
+              {thirtyPercentPrice?.map((item, index) => (
                 <div
                   key={index}
                   onClick={() =>
