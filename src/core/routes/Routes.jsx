@@ -5,14 +5,13 @@ import ResetPassword from "../user/resetPassword";
 import SendResetPasswordEmail from "../user/sendResetPasswordEmail";
 import Home from "../pages/home";
 import Settings from "../user/account/settings";
-import Categories from "../pages/products/categories";
 import ProductList from "../pages/products/list";
 import ViewProduct from "../pages/products/list/preview";
 import About from "../pages/about";
 import Contact from "../pages/contact";
 import Payment from "../pages/payment";
 import Faq from "../pages/faq";
-import ProductsByCategory from "../pages/productByCategory";
+import Categories from "../pages/categories";
 import Orders from "../user/account/order/list";
 import Transaction from "../user/account/transaction/list";
 import Cart from "../pages/cart";
@@ -39,10 +38,9 @@ const publicRoutes = [
   { path: "/about", component: <About /> },
   { path: "/contact", component: <Contact /> },
   { path: "/payment", component: <Payment /> },
-  { path: "/products/categories", component: <Categories /> },
   { path: "/products/list", component: <ProductList /> },
   { path: "/products/list/:id", component: <ViewProduct /> },
-  { path: "/products/list/:category", component: <ProductsByCategory /> },
+  { path: "/products/:category", component: <Categories /> },
   { path: "/faq", component: <Faq /> },
   { path: "/cart", component: <Cart /> },
   { path: "/payment-success", component: <CheckoutMessage /> },

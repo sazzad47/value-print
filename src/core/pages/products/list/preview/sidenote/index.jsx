@@ -50,10 +50,10 @@ const formatKey = (key) => {
                       }}
                       className="flex justify-between gap-5 items-center p-3 w-full"
                     >
-                      <Typography className="text-gray-900 text-xs">
+                      <Typography className="text-fuchsia-900 font-bold text-xs">
                       {formatKey(key)}
                       </Typography>
-                      <Typography className="text-gray-900 text-xs">
+                      <Typography className="text-gray-900 font-semibold text-xs">
                         {value}
                       </Typography>
                     </div>

@@ -48,7 +48,7 @@ const Footer = () => {
                     <Link
                       className="no-underline text-gray-800"
                       key={index}
-                      to={`/products/list/${item.name.replace("/", "-")}`}
+                      to={`/products/${item.name.replace("/", "-")}`}
                     >
                       <div> {item.name} </div>
                     </Link>

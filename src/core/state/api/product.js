@@ -76,15 +76,6 @@ export const productApi = createApi({
         },
       }),
     }),
-    getProductsByCategory: builder.query({
-      query: ({category}) => ({
-        url: `list/${category}/`,
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      }),
-    }),
     getProduct: builder.query({
       query: ({id}) => ({
         url: `list/${id}/get/`,
@@ -115,6 +106,15 @@ export const productApi = createApi({
         },
       }),
     }),
+    searchByCategory: builder.query({
+      query: ({category}) => ({
+        url: `list/${category}/`,
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }),
+    }),
   }),
 });
 
@@ -126,8 +126,8 @@ export const {
   useUpdateCategoryMutation,
   useCreateProductMutation,
   useGetProductsQuery,
-  useGetProductsByCategoryQuery,
   useGetProductQuery,
   useDeleteProductMutation,
   useUpdateProductMutation,
+  useSearchByCategoryQuery,
 } = productApi;
