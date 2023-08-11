@@ -67,13 +67,13 @@ const GeneralPrice = ({
     <>
       <div className="w-full flex justify-between my-[2rem]">
         <div className="flex items-end">
-          <MdLocationOn className="text-fuchsia-600 text-6xl" />
+          <MdLocationOn className="text-fuchsia-600 text-3xl md:text-6xl" />
           <div className="flex flex-col gap-2">
-            <Typography className="text-gray-500 font-bold text-xl">
+            <Typography className="text-gray-500 font-bold text-sm md:text-xl">
               {" "}
               Location{" "}
             </Typography>
-            <Typography className="text-gray-900 font-semibold text-2xl">
+            <Typography className="text-gray-900 font-semibold text-lg md:text-2xl">
               {" "}
               Singapore City{" "}
             </Typography>
@@ -92,9 +92,9 @@ const GeneralPrice = ({
       </Box> */}
 
       <div className="w-full flex">
-        <div className="w-[25%] flex flex-col gap-2">
+        <div className="w-[30%] md:w-[25%] flex flex-col gap-2">
           <div className="w-full flex justify-center">
-            <img src={deliveryPhoto} alt="" width={100} height={100} />
+            <img src={deliveryPhoto} alt="" className="w-[60px] h-[60px] md:w-[100px] md:h-[100px]" />
           </div>
           <div
             style={{
@@ -102,14 +102,14 @@ const GeneralPrice = ({
               borderLeft: "1px solid #d4d4d8",
             }}
           >
-            <div className="w-full px-3 py-2 bg-[#d4d4d8] text-gray-800 font-bold text-lg text-center">
+            <div className="w-full px-3 py-2 bg-[#d4d4d8] text-gray-800 font-bold text-sm md:text-lg text-center">
               Quantities
             </div>
             {price.map((item, index) => (
               <div
                 className={`flex ${
                   currentIndex === index && mouseEntered ? "bg-pink-100" : ""
-                } gap-2 justify-center items-center h-[3rem] w-full cursor-pointer text-gray-800`}
+                } gap-1 md:gap-2 justify-center items-center h-[3rem] w-full cursor-pointer text-gray-800`}
                 key={index}
               >
                 {item.quantity} pieces
@@ -117,8 +117,8 @@ const GeneralPrice = ({
             ))}
           </div>
         </div>
-        <div className="w-[75%] flex flex-col">
-          <div className="w-full px-3 py-2 bg-[#d4d4d8] text-gray-800 font-bold text-lg text-center">
+        <div className="w-[70%] md:w-[75%] flex flex-col">
+          <div className="w-full px-3 py-2 bg-[#d4d4d8] text-gray-800 font-bold text-sm md:text-lg text-center">
             Printing Price (incl. Delivery Fee)
           </div>
           <div className="w-full grid grid-cols-2">
@@ -131,8 +131,8 @@ const GeneralPrice = ({
               className="flex flex-col"
             >
               <div className="flex flex-col h-[6.7rem]">
-                <h3 className="text-lg text-gray-800 text-center">Express</h3>
-                <p className="font-medium text-sm text-gray-600 text-center">
+                <h3 className="text-sm md:text-lg text-gray-800 text-center">Express</h3>
+                <p className="font-medium text-xs md:text-sm text-gray-600 text-center">
                   {" "}
                   2 working days (excluding weekends)
                 </p>
@@ -167,11 +167,11 @@ const GeneralPrice = ({
                       : currentIndex === index && mouseEntered
                       ? "bg-pink-50"
                       : ""
-                  } gap-2 justify-center items-center h-[3rem] w-full cursor-pointer`}
+                  } gap-1 md:gap-2 justify-center items-center h-[3rem] w-full cursor-pointer`}
                 >
                   <span
                     style={{ border: "1px solid #d4d4d8" }}
-                    className="w-[20px] h-[20px] rounded-full"
+                    className="w-[15px] h-[15px] md:w-[20px] md:h-[20px] rounded-full"
                   >
                     {((currentIndex === index && hoveredExpPrice) ||
                       featuresState["price"] ===
@@ -209,8 +209,8 @@ const GeneralPrice = ({
               className="flex flex-col"
             >
               <div className="flex flex-col h-[6.7rem]">
-                <h3 className="text-lg text-gray-800 text-center">Standard</h3>
-                <p className="font-medium text-sm text-gray-600 text-center">
+                <h3 className="text-sm md:text-lg text-gray-800 text-center">Standard</h3>
+                <p className="font-medium text-xs md:text-sm text-gray-600 text-center">
                   {" "}
                   7 working days (excluding weekends)
                 </p>
@@ -241,11 +241,11 @@ const GeneralPrice = ({
                       : currentIndex === index && mouseEntered
                       ? "bg-pink-50"
                       : ""
-                  } gap-2 justify-center items-center h-[3rem] w-full cursor-pointer`}
+                  } gap-1 md:gap-2 justify-center items-center h-[3rem] w-full cursor-pointer`}
                 >
                   <span
                     style={{ border: "1px solid #d4d4d8" }}
-                    className="w-[20px] h-[20px] rounded-full"
+                    className="w-[15px] h-[15px] md:w-[20px] md:h-[20px] rounded-full"
                   >
                     {((currentIndex === index && hoveredStdPrice) ||
                       featuresState["price"] ===

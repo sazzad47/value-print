@@ -108,7 +108,7 @@ const ImageUploader = ({
             <div className="w-full flex items-center justify-center">
               <GrDocumentUpload className="text-gray-400 h-[50px] w-[50px]" />
             </div>
-            <h3 className="text-xl font-bold text-gray-700">
+            <h3 className="text-xl font-bold text-gray-700 text-center">
               Drag and drop {multiple ? "files" : "file"} here or click to
               upload
             </h3>

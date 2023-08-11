@@ -51,7 +51,7 @@ export default function UploadArtwork({
           },
         }}
       >
-        <div className="p-5 pb-0 flex justify-between mb-[5rem]">
+        <div className="p-5 pb-0 flex justify-between mb-[2rem]">
           <Typography className="text-3xl text-gray-900">
             Finalise Your Order
           </Typography>
@@ -64,7 +64,7 @@ export default function UploadArtwork({
             <CloseIcon className="text-gray-900" />
           </IconButton>
         </div>
-        <div className="w-full flex flex-col gap-5 sm:w-[700px] mx-auto">
+        <div className="w-full flex flex-col gap-5 sm:w-[700px] mx-auto px-5">
           <div className="bg-gray-200 w-full h-full flex flex-col items-center gap-5">
             <h3 className="text-2xl text-gray-800 font-bold">
               {" "}
