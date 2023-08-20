@@ -6,6 +6,7 @@ import SendResetPasswordEmail from "../user/sendResetPasswordEmail";
 import Home from "../pages/home";
 import Settings from "../user/account/settings";
 import ProductList from "../pages/products/list";
+import ProductDetails from "../pages/productDetails";
 import ViewProduct from "../pages/products/list/preview";
 import About from "../pages/about";
 import Contact from "../pages/contact";
@@ -38,6 +39,7 @@ const publicRoutes = [
   { path: "/about", component: <About /> },
   { path: "/contact", component: <Contact /> },
   { path: "/payment", component: <Payment /> },
+  { path: "/products/:id", component: <ProductDetails /> },
   { path: "/products/list", component: <ProductList /> },
   { path: "/products/list/:id", component: <ViewProduct /> },
   { path: "/products/:category", component: <Categories /> },

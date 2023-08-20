@@ -5,9 +5,9 @@ const Product = ({ product }) => {
  
   return (
     <div className="w-full h-full max-w-sm bg-pink-100 border border-gray-200 rounded-lg shadow-[0_4px_9px_-4px_#3b71ca] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-      <Link to={`/products/list/${product.id}`} className="no-underline">
+      <Link to={`/products/${product.id}`} className="no-underline">
         <div className="w-full h-[10rem] relative">
-          <Link to={`/products/list/${product.id}`}>
+          <Link to={`/products/${product.id}`}>
             <img
               className="w-full h-full absolute"
               src={product.photo}

@@ -60,8 +60,6 @@ const GeneralPrice = ({
   
   const thirtyPercentIndex = Math.ceil(price?.length * 0.3);
   const thirtyPercentPrice = price?.slice(0, thirtyPercentIndex);
-
-  console.log("featuresState", price);
   
   return (
     <>
@@ -92,7 +90,7 @@ const GeneralPrice = ({
       </Box> */}
 
       <div className="w-full flex">
-        <div className="w-[30%] md:w-[25%] flex flex-col gap-2">
+        <div className="w-[30%] md:w-[25%] flex flex-col justify-between gap-2">
           <div className="w-full flex justify-center">
             <img src={deliveryPhoto} alt="" className="w-[60px] h-[60px] md:w-[100px] md:h-[100px]" />
           </div>
