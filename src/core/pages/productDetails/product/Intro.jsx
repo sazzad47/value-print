@@ -45,7 +45,6 @@ export default function Intro({ product }) {
     product.features.map((_, index) => `panel${index + 1}`)
   );
 
-  // Initialize the initialVariantsExpanded flag with true only once
   const [initialVariantsExpanded, setInitialVariantsExpanded] =
     React.useState(true);
 
@@ -56,7 +55,6 @@ export default function Intro({ product }) {
         : expanded.filter((item) => item !== panel)
     );
 
-    // Set initialVariantsExpanded to false when any panel is expanded
     if (panel === "variants") {
       setInitialVariantsExpanded(false);
     }
@@ -64,7 +62,7 @@ export default function Intro({ product }) {
 
   return (
     <div className="h-full flex flex-col justify-between">
-      <h1 className="text-4xl text-bold text-center mb-5 mt-[3rem]">
+      <h1 className="text-2xl md:text-4xl text-bold text-center mb-5 mt-[3rem]">
         {" "}
         {product.name} Specifications{" "}
       </h1>

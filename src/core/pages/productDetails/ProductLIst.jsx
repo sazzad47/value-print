@@ -21,7 +21,7 @@ const ProductList = () => {
         <div className="max-w-screen-xl pb-[2rem] mx-auto text-gray-900 flex h-full">
           <VerticalTabs productList={productList} id={id} />
 
-          <div className="w-[80%] pl-5">
+          <div className="w-full md:w-[80%] pl-0 md:pl-5">
             {isGetProductLoading ? (
               <LoadingSpinner />
             ) : (
@@ -55,7 +55,7 @@ const VerticalTabs = ({ productList }) => {
   const { id } = useParams();
 
   return (
-    <div className="w-[20%] overflow-y-auto sticky flex flex-col items-start">
+    <div className="w-[20%] hidden overflow-y-auto sticky md:flex flex-col items-start">
       {productList.map((product, index) => (
         <Link key={index} to={`/products/${product.id}`} className="no-underline">
           <div

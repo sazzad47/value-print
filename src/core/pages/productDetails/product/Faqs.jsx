@@ -51,7 +51,7 @@ export default function Faqs({ product }) {
   
   return (
     <div className="h-full flex flex-col justify-between">
-      <h1 className="text-4xl text-bold text-center mb-5 mt-[7rem]"> Frequently Asked Questions </h1>
+      <h1 className="text-2xl md:text-4xl text-bold text-center mb-5 mt-[7rem]"> Frequently Asked Questions </h1>
       <div className="text-gray-900">
         {product.faq.content.map((item, index) => (
           <Accordion
