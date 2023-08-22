@@ -79,16 +79,10 @@ export default function Intro({ product }) {
             >
               <Typography>{item.placeholder}</Typography>
             </AccordionSummary>
-            <AccordionDetails>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {item.value.map((valueItem, valueIndex) => {
-                  if (valueItem.photo === "") {
-                    return (
-                      <ul key={`value${valueIndex}`}>
-                        <li>{valueItem.title}</li>
-                      </ul>
-                    );
-                  } else {
+            {item.placeholder === "Model" ? (
+              <AccordionDetails>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  {item.value.map((valueItem, valueIndex) => {
                     return (
                       <div
                         key={`value${valueIndex}`}
@@ -104,10 +98,20 @@ export default function Intro({ product }) {
                         <h3 className="font-semibold"> {valueItem.title} </h3>
                       </div>
                     );
-                  }
+                  })}
+                </div>
+              </AccordionDetails>
+            ) : (
+              <AccordionDetails>
+                {item.value.map((valueItem, valueIndex) => {
+                  return (
+                    <ul key={`value${valueIndex}`}>
+                      <li>{valueItem.title}</li>
+                    </ul>
+                  );
                 })}
-              </div>
-            </AccordionDetails>
+              </AccordionDetails>
+            )}
           </Accordion>
         ))}
       </div>
