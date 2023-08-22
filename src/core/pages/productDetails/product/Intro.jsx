@@ -62,7 +62,7 @@ export default function Intro({ product }) {
 
   return (
     <div className="h-full flex flex-col justify-between">
-      <h1 className="text-2xl md:text-4xl text-bold text-center mb-5 mt-[3rem]">
+      <h1 className="text-2xl sm:text-4xl text-bold text-center mb-5 mt-[3rem]">
         {" "}
         {product.name} Specifications{" "}
       </h1>
@@ -80,7 +80,7 @@ export default function Intro({ product }) {
               <Typography>{item.placeholder}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {item.value.map((valueItem, valueIndex) => {
                   if (valueItem.photo === "") {
                     return (
@@ -143,7 +143,7 @@ export default function Intro({ product }) {
                           <Typography>{variant.title}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                             {variant.subvariant.value.map(
                               (valueItem, valueIndex) => {
                                 if (valueItem.photo === "") {

@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 const Header = ({ product }) => {
   return (
-    <div className="w-full flex flex-col md:flex-row bg-gray-200 p-3">
-      <div className="w-full md:w-[40%] min-h-full flex items-center justify-center">
+    <div className="w-full flex flex-col sm:flex-row bg-gray-200 p-3">
+      <div className="w-full sm:w-[40%] min-h-full flex items-center justify-center">
         <img src={product.intro_photo} alt="" className="w-full aspect-auto" />
       </div>
-      <div className="w-full md:w-[60%] flex flex-col justify-start p-5 pl-[2rem]">
+      <div className="w-full sm:w-[60%] flex flex-col justify-start p-5 pl-[2rem]">
         <h1 className="uppercase text-[15px] font-medium">
           {" "}
           {product.slogan}{" "}
