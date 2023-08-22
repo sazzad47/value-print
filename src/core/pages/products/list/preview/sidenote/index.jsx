@@ -23,15 +23,15 @@ const formatKey = (key) => {
         <div className="w-full max-w-md p-4 shadow">
           <div className="flex flex-col gap-3 mb-4">
             <div className="text-gray-900 text-lg font-bold leading-none flex items-center gap-3">
-              {query === "upload_design" ? (
-                <>
-                  <AiOutlineCloudUpload />
-                  Upload your design
-                </>
-              ) : (
+              {query === "let_us_design" ? (
                 <>
                   <AiOutlineSketch />
                   Let us design
+                </>
+              ) : (
+                <>
+                 <AiOutlineCloudUpload />
+                  Upload your design
                 </>
               )}
             </div>

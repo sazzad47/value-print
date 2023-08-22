@@ -37,7 +37,7 @@ const Service = ({ data, services, setServices }) => {
             name="radio-buttons-group"
           >
             <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-3 px-5">
-              {services.map((item, index) => (
+              {services?.map((item, index) => (
                 <Box
                   sx={{
                     border: `1px solid ${theme.palette.primary[800]}`,
@@ -62,10 +62,10 @@ const Service = ({ data, services, setServices }) => {
                   />
                   <div className="w-full h-full flex flex-col justify-between px-5">
                     <ul className="m-0 p-0">
-                      {item.services.map((item, index) => (
+                      {item?.services?.map((item, index) => (
                         <li key={index} className="w-full">
                           <Typography className="text-gray-900 text-xs whitespace-normal">
-                            {item}
+                            {item.content}
                           </Typography>
                         </li>
                       ))}
