@@ -6,6 +6,7 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import Faqs from "./Faqs";
+import Ideas from "./Ideas";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -45,19 +46,12 @@ export default function Intro({ product }) {
     product.features.map((_, index) => `panel${index + 1}`)
   );
 
-  const [initialVariantsExpanded, setInitialVariantsExpanded] =
-    React.useState(true);
-
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(
       newExpanded
         ? [...expanded, panel]
         : expanded.filter((item) => item !== panel)
     );
-
-    if (panel === "variants") {
-      setInitialVariantsExpanded(false);
-    }
   };
 
   return (
@@ -67,7 +61,7 @@ export default function Intro({ product }) {
         {product.name} Specifications{" "}
       </h1>
       <div className="text-gray-900">
-        {product.features.map((item, index) => (
+        {product.intro.map((item, index) => (
           <Accordion
             key={`panel${index + 1}`}
             expanded={expanded.includes(`panel${index + 1}`)}
@@ -96,6 +90,11 @@ export default function Intro({ product }) {
                           />
                         </div>
                         <h3 className="font-semibold"> {valueItem.title} </h3>
+                        {valueItem.features.map((feature, featureIndex) => (
+                          <ul className="ml-4" key={`value${featureIndex}`}>
+                            <li>{feature}</li>
+                          </ul>
+                        ))}
                       </div>
                     );
                   })}
@@ -105,8 +104,13 @@ export default function Intro({ product }) {
               <AccordionDetails>
                 {item.value.map((valueItem, valueIndex) => {
                   return (
-                    <ul key={`value${valueIndex}`}>
-                      <li>{valueItem.title}</li>
+                    <ul className="ml-4" key={`value${valueIndex}`}>
+                      {valueItem.title !== "" && <h3>{valueItem.title}</h3>}
+                      {valueItem.features.map((feature, featureIndex) => (
+                        <ul key={`value${featureIndex}`}>
+                          <li>{feature}</li>
+                        </ul>
+                      ))}
                     </ul>
                   );
                 })}
@@ -115,81 +119,8 @@ export default function Intro({ product }) {
           </Accordion>
         ))}
       </div>
-      {product.variants.placeholder !== "" && (
-        <div className="text-gray-900">
-          <Accordion
-            expanded={expanded.includes("variants") || initialVariantsExpanded}
-            onChange={handleChange("variants")}
-          >
-            <AccordionSummary
-              aria-controls="variants-content"
-              id="variants-header"
-            >
-              <Typography>{product.variants.placeholder}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <div className="text-gray-900">
-                {product.variants.value.map((variant, variantIndex) => (
-                  <div key={`variant${variantIndex}`}>
-                    {variant.subvariant.placeholder === "" ? (
-                      <ul>
-                        <li>{variant.title}</li>
-                      </ul>
-                    ) : (
-                      <Accordion
-                        expanded={expanded.includes(`variant${variantIndex}`)}
-                        onChange={handleChange(`variant${variantIndex}`)}
-                      >
-                        <AccordionSummary
-                          aria-controls={`variant${variantIndex}-content`}
-                          id={`variant${variantIndex}-header`}
-                        >
-                          <Typography>{variant.title}</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                            {variant.subvariant.value.map(
-                              (valueItem, valueIndex) => {
-                                if (valueItem.photo === "") {
-                                  return (
-                                    <ul key={`value${valueIndex}`}>
-                                      <li>{valueItem.title}</li>
-                                    </ul>
-                                  );
-                                } else {
-                                  return (
-                                    <div
-                                      key={`value${valueIndex}`}
-                                      className="flex flex-col gap-2"
-                                    >
-                                      <div className="w-full bg-gray-300 p-5 flex items-center justify-center">
-                                        <img
-                                          src={valueItem.photo}
-                                          alt=""
-                                          className="w-full aspect-auto"
-                                        />
-                                      </div>
-                                      <h3 className="font-semibold">
-                                        {" "}
-                                        {valueItem.title}{" "}
-                                      </h3>
-                                    </div>
-                                  );
-                                }
-                              }
-                            )}
-                          </div>
-                        </AccordionDetails>
-                      </Accordion>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </AccordionDetails>
-          </Accordion>
-        </div>
-      )}
 
+      <Ideas product={product} />
       <Faqs product={product} />
     </div>
   );
