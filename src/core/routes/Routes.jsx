@@ -20,6 +20,7 @@ import CheckoutMessage from "../pages/checkout/Message";
 import OrdersDetails from "../pages/orderDetails";
 import UploadArtwork from "../pages/products/list/preview/UploadArtwork";
 import QuotationDetails from "../pages/home/quote/details";
+import DeliverySchedule from "../pages/deliverySchedule";
 
 const routes = [
   { path: "/account", component: <Orders /> },
@@ -39,6 +40,7 @@ const publicRoutes = [
   { path: "/about", component: <About /> },
   { path: "/contact", component: <Contact /> },
   { path: "/payment", component: <Payment /> },
+  { path: "/delivery-schedule", component: <DeliverySchedule /> },
   { path: "/products/:id", component: <ProductDetails /> },
   { path: "/products/list", component: <ProductList /> },
   { path: "/products/list/:id", component: <ViewProduct /> },
