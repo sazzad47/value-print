@@ -6,7 +6,7 @@ import Intro from "./Intro";
 import { Link } from "react-router-dom";
 
 
-export default function Details({product}) {
+export default function Details({product, data}) {
   
   const [value, setValue] = useState(0);
 
@@ -63,7 +63,7 @@ export default function Details({product}) {
            
           </Tabs>
           <TabPanel value={value} index={0}>
-        <Intro product={product} />
+        <Intro product={product} data={data} />
       </TabPanel>
          
         </Box>

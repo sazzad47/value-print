@@ -25,7 +25,7 @@ const ProductList = () => {
             {isGetProductLoading ? (
               <LoadingSpinner />
             ) : (
-              <ProductGrid product={product} />
+              <ProductGrid product={product} data={data} />
             )}
           </div>
         </div>
@@ -80,9 +80,9 @@ const VerticalTabs = ({ productList }) => {
   );
 };
 
-const ProductGrid = ({ product }) => (
+const ProductGrid = ({ product, data }) => (
   <div>
-    <Product product={product} />
+    <Product product={product} data={data} />
   </div>
 );
 

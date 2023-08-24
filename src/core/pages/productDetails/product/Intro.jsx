@@ -7,6 +7,7 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import Faqs from "./Faqs";
 import Ideas from "./Ideas";
+import MayLike from "./MayLike";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -41,7 +42,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   color: "black",
 }));
 
-export default function Intro({ product }) {
+export default function Intro({ product, data }) {
   const [expanded, setExpanded] = React.useState(
     product.features.map((_, index) => `panel${index + 1}`)
   );
@@ -122,6 +123,7 @@ export default function Intro({ product }) {
 
       <Ideas product={product} />
       <Faqs product={product} />
+      <MayLike product={product} data={data} />
     </div>
   );
 }
