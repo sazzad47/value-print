@@ -32,12 +32,19 @@ export default function Details({ product, data }) {
             },
           }}
           sx={{
+            "& .MuiTabs-flexContainer": {
+              display: "flex",
+              justifyContent: "center",
+              
+              flexWrap: 'wrap',
+            },
             "& button": {
               color: "black",
               textTransform: "capitalize",
               fontSize: "1rem",
               backgroundColor: "#fce7f3",
               marginRight: "1rem",
+              marginTop: "1rem",
               borderRadius: "40px",
               // boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.25)",
             },
@@ -46,13 +53,14 @@ export default function Details({ product, data }) {
               backgroundColor: "#f472b6",
             },
             borderTop: 0,
-            height: "5rem",
             display: "flex",
             alignItems: "center",
           }}
         >
           <Tab label="Product Details" />
-
+          <Tab label="Product Specs" />
+          <Tab label="Artwork Specs" />
+          <Tab label="Product Size Template" />
           <Tab
             onClick={() => navigate(`/products/list/${product.id}`)}
             label="Price List"
