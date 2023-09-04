@@ -11,9 +11,6 @@ const GeneralFeatures = ({
   setPrice,
   features,
   setFeatures,
-  variants,
-  subvariants,
-  setSubvariants,
   featuresState,
   setFeaturesState,
 }) => {

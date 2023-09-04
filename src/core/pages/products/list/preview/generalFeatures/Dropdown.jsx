@@ -26,23 +26,10 @@ const subMenuAnimate = {
   },
 };
 
-export default function Dropdown({ item, featuresState, setFeaturesState }) {
+export default function Dropdown({colIdx, nextOptions, columnName, handleChange, handleTableChange, featuresState, setFeaturesState }) {
   const [isMouse, toggleMouse] = React.useState(false);
   const toggleMouseMenu = () => {
     toggleMouse(!isMouse);
-  };
-
-  const defaultValue = item.value.find((val) => val.is_default);
-  const defaultValueTitle = defaultValue
-    ? defaultValue.title
-    : item.value[0].title;
-
-  const handleSelect = (placeholder, title) => {
-    setFeaturesState((prevFeaturesState) => ({
-      ...prevFeaturesState,
-      [placeholder]: title,
-    }));
-
   };
 
   return (
@@ -55,7 +42,7 @@ export default function Dropdown({ item, featuresState, setFeaturesState }) {
               : "hover:shadow-[0_0_10px_rgba(8,_112,_184,_0.7)]"
           } justify-between text-gray-600 -z-10 w-full text-sm bg-gray-100 px-3 py-2`}
         >
-          {featuresState[item.placeholder] || defaultValueTitle}
+          {featuresState[columnName] || `Select ${columnName}`}
           <div
             className={`input-dropdown ${
               isMouse ? "active" : ""
@@ -74,18 +61,28 @@ export default function Dropdown({ item, featuresState, setFeaturesState }) {
         >
           <div className="sub-menu-background" />
           <div className="sub-menu-container">
-            {item.value.map((option, index) => (
+          {nextOptions[columnName] &&
+                    nextOptions[columnName].map((option, index) => (
+          
               <div
-                onClick={() => handleSelect(item.placeholder, option.title)}
+              onClick={() => {
+                console.log("index", colIdx);
+                if (colIdx === 0) {
+                  handleTableChange(option.value, columnName);
+                } else {
+                  handleChange(option.value, columnName);
+                }
+              }}
+              
                 key={index}
                 style={{
                   borderBottom:
-                    index === item.value.length - 1
+                    index === nextOptions[columnName].length - 1
                       ? "none"
                       : "1px solid #d1d5db",
                 }}
                 className={`sub-menu-item cursor-pointer text-gray-800  px-3 py-2 flex gap-5 ${
-                  featuresState[item.placeholder] === option.title
+                  featuresState[columnName] === option.value
                     ? "bg-pink-400 text-white"
                     : "hover:text-white hover:bg-pink-400"
                 } `}
@@ -102,9 +99,9 @@ export default function Dropdown({ item, featuresState, setFeaturesState }) {
                     <AiOutlineFileImage className="w-[40px] h-[40px]" />
                   )}
                 </div>
-                <div className="flex flex-col w-full">
-                  <h4 className="font-bold text-md"> {option.title} </h4>
-                  <p className="text-[0.6rem]"> {option.description} </p>
+                <div className="flex flex-col w-full justify-center">
+                  <h4 className="font-bold text-md"> {option.value} </h4>
+                  <p className="text-[0.6rem]"> {option?.description} </p>
                 </div>
                 {option.is_popular && (
                   <div className="flex flex-col items-center">

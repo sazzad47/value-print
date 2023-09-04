@@ -7,7 +7,6 @@ import Description from "./description";
 import Features from "./features";
 import SideNote from "./sidenote";
 import Service from "./service";
-import GeneralFeatures from "./generalFeatures";
 
 const Preview = () => {
   const params = useParams();
@@ -43,7 +42,7 @@ const Preview = () => {
       }));
     }
   }, [data]);
-
+  
   return (
     <>
       {isGetProductLoading ? (
@@ -90,22 +89,8 @@ const Preview = () => {
                     setServices={setServices}
                   />
                 )}
-                {variants?.placeholder === "" ? (
-                  <GeneralFeatures
-                    data={data}
-                    price={price}
-                    setPrice={setPrice}
-                    features={features}
-                    setFeatures={setFeatures}
-                    subvariants={subvariants}
-                    setSubvariants={setSubvariants}
-                    featuresState={featuresState}
-                    setFeaturesState={setFeaturesState}
-                    variants={variants}
-                  />
-                ) : (
+          
                   <Features
-                    data={data}
                     price={price}
                     setPrice={setPrice}
                     features={features}
@@ -115,8 +100,8 @@ const Preview = () => {
                     featuresState={featuresState}
                     setFeaturesState={setFeaturesState}
                     variants={variants}
+                    data={data.pricing}
                   />
-                )}
               </div>
               <div className="hidden sticky min-w-[30%] min-h-[60vh] top-0 md:flex justify-center items-center">
                 <SideNote features={features} featuresState={featuresState} />
