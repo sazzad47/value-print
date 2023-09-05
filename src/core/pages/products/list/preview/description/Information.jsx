@@ -1,5 +1,6 @@
 import { Box, Button, useTheme } from "@mui/material";
 import React from "react";
+import Parser from "html-react-parser";
 
 const Information = ({setOpenDialog, data}) => {
   const theme = useTheme();
@@ -7,7 +8,7 @@ const Information = ({setOpenDialog, data}) => {
   return (
     <div className="w-fll h-full flex flex-col justify-between">
       <Box className="fade h-[80%] text-gray-900 whitespace-pre-wrap">
-        {data.information}
+      {Parser(data?.information)}
       </Box>
       <div className="w-full flex items-center justify-center">
         <Button
