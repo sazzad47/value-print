@@ -6,7 +6,7 @@ const Information = ({setOpenDialog, data}) => {
 
   return (
     <div className="w-fll h-full flex flex-col justify-between">
-      <Box className="fade h-[80%] text-gray-900">
+      <Box className="fade h-[80%] text-gray-900 whitespace-pre-wrap">
         {data.information}
       </Box>
       <div className="w-full flex items-center justify-center">
