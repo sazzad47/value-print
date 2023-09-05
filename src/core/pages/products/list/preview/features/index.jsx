@@ -13,21 +13,22 @@ function PricingOptions({
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedPricing, setSelectedPricing] = useState(null);
   const [nextOptions, setNextOptions] = useState({});
-
+  console.log('data', data)
+  
   useEffect(() => {
     const initialSelectedOptions = {};
     const initialNextOptions = {};
-
-    data[0].columns.forEach((columnName) => {
+  
+    data[0].columns.forEach((columnName, columnIndex) => {
       const uniqueOptions = new Set();
       const photoMap = {};
-
+  
       data.forEach((table) => {
         table.rows.forEach((row) => {
           if (table.columns.includes(columnName)) {
             row.cellData[table.columns.indexOf(columnName)].forEach((option) => {
               const { value, photo, is_popular } = option;
-
+  
               if (!uniqueOptions.has(value)) {
                 uniqueOptions.add(value);
                 photoMap[value] = { photo: photo || '', is_popular: is_popular || false };
@@ -36,22 +37,32 @@ function PricingOptions({
           }
         });
       });
-
+  
       initialSelectedOptions[columnName] = '';
-      initialNextOptions[columnName] = Array.from(uniqueOptions).map((value) => ({
-        value,
-        photo: photoMap[value].photo,
-        is_popular: photoMap[value].is_popular,
-      }));
+  
+      // Initialize nextOptions only for the first column
+      if (columnIndex === 0) {
+        initialNextOptions[columnName] = Array.from(uniqueOptions).map((value) => ({
+          value,
+          photo: photoMap[value].photo,
+          is_popular: photoMap[value].is_popular,
+        }));
+      } else {
+        initialNextOptions[columnName] = [];
+      }
     });
-
+  
     setSelectedOptions(initialSelectedOptions);
     setNextOptions(initialNextOptions);
   }, [data]);
+  
 
   const handleTableChange = (value, columnName) => {
+
+    console.log('tableName', value)
     const selectedTableName = value;
     const selectedTableData = data.find((table) => table.tableName === selectedTableName);
+    console.log('selectedTableData', selectedTableData)
     setSelectedTable(selectedTableData);
 
     const initialSelectedOptions = {
@@ -198,7 +209,7 @@ function PricingOptions({
         <GeneralPlaceholer className="optionHeading" text="1. Choose your options" />
         <div className="px-[20px] py-[20px]">
           <Grid className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
-            {selectedTable.columns.map((columnName, colIdx) => (
+            {selectedTable?.columns.map((columnName, colIdx) => (
               <React.Fragment key={colIdx}>
                 <Grid
                   id={`options-container-${colIdx}`}
@@ -221,6 +232,7 @@ function PricingOptions({
                 </Grid>
               </React.Fragment>
             ))}
+            
           </Grid>
         </div>
       </Paper>
