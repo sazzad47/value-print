@@ -14,7 +14,7 @@ function PricingOptions({
   const [selectedPricing, setSelectedPricing] = useState(null);
   const [nextOptions, setNextOptions] = useState({});
   console.log('data', data)
-  
+
   useEffect(() => {
     const initialSelectedOptions = {};
     const initialNextOptions = {};
@@ -73,6 +73,44 @@ function PricingOptions({
     const nextColumnName = selectedTableData.columns[1];
     const nextColumnOptions = new Set();
 
+  
+ // Flag to track whether we've reached the current column
+ let reachedCurrentColumn = false;
+
+ selectedTableData.columns.forEach((col) => {
+   if (reachedCurrentColumn) {
+     // Set featureState and nextOptions to null for subsequent columns
+     setFeaturesState((prevFeaturesState) => ({
+       ...prevFeaturesState,
+       [col]: null,
+     }));
+    
+   }
+
+   // Check if the current column matches the columnName
+   if (col === columnName) {
+     reachedCurrentColumn = true;
+   }
+ });
+
+ // Flag to track whether we've reached the next column
+ let reachedNextColumn = false;
+
+ selectedTableData.columns.forEach((col) => {
+   if (reachedNextColumn) {
+    setNextOptions((prevNextOptions) => ({
+      ...prevNextOptions,
+      [col]: [],
+    }));
+    
+   }
+
+   // Check if the current column matches the nextColumnName
+   if (col === nextColumnName) {
+    reachedNextColumn = true;
+   }
+ });
+
     selectedTableData.rows.forEach((row) => {
       row.cellData[1].forEach((option) => {
         const optionToAdd = {
@@ -112,6 +150,26 @@ function PricingOptions({
       },
     }));
 
+    let reachedCurrentColumn = false;
+
+    selectedTable.columns.forEach((col) => {
+      if (reachedCurrentColumn) {
+        // Set featureState to null for subsequent columns
+        setFeaturesState((prevFeaturesState) => ({
+          ...prevFeaturesState,
+          [col]: null,
+        }));
+      }
+  
+      // Check if the current column matches the columnName
+      if (col === columnName) {
+        reachedCurrentColumn = true;
+      }
+    });
+
+    
+
+
     setFeaturesState((prevFeaturesState) => ({
       ...prevFeaturesState,
       [columnName]: value,
@@ -147,6 +205,24 @@ function PricingOptions({
             }
           });
         });
+
+      // Flag to track whether we've reached the next column
+ let reachedNextColumn = false;
+
+ selectedTable.columns.forEach((col) => {
+   if (reachedNextColumn) {
+    setNextOptions((prevNextOptions) => ({
+      ...prevNextOptions,
+      [col]: [],
+    }));
+    
+   }
+
+   // Check if the current column matches the nextColumnName
+   if (col === nextColumnName) {
+    reachedNextColumn = true;
+   }
+ });
 
       setNextOptions((prevNextOptions) => ({
         ...prevNextOptions,
