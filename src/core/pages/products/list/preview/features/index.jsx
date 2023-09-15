@@ -71,7 +71,7 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
   //   });
 
   //   setFeaturesState(updatedFeaturesState);
-  //   // eslint-disable-next-line 
+  //   // eslint-disable-next-line
   // }, [hiddenColumns, setFeaturesState, selectedTable.columns]);
 
   const handleTableChange = (value, columnName) => {
@@ -249,46 +249,82 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
       if (isCurrentColumnEmpty) {
         nextColumnIndex = selectedTable.columns.indexOf(columnName) + 2;
         nextColumnName = selectedTable.columns[nextColumnIndex];
-      }
+      }    
 
-      selectedTable.rows
-        .filter(
-          (row) =>
-            selectedTable.columns
-              .slice(0, columnIndex)
-              .filter(
-                (prevColumnName) =>
-                  !hiddenColumns.includes(
-                    selectedTable.columns.indexOf(prevColumnName)
-                  )
-              )
-              .every((prevColumnName) =>
-                row.cellData[
-                  selectedTable.columns.indexOf(prevColumnName)
-                ].some(
-                  (option) =>
-                    selectedOptions[prevColumnName]?.value === option.value
+      let lastColumnIndex = isCurrentColumnEmpty? nextColumnIndex : columnIndex
+
+      if (lastColumnIndex < selectedTable.columns.length - 1) {
+        selectedTable.rows
+          .filter(
+            (row) =>
+              selectedTable.columns
+                .slice(0, columnIndex)
+                .filter(
+                  (prevColumnName) =>
+                    !hiddenColumns.includes(
+                      selectedTable.columns.indexOf(prevColumnName)
+                    )
                 )
-              ) &&
-            row.cellData[columnIndex].some((option) => option.value === value)
-        )
-        .forEach((row) => {
-          row.cellData[nextColumnIndex].forEach((option) => {
-            const optionToAdd = {
-              value: option.value || "",
-              photo: option.photo || "",
-              is_popular: option.is_popular || false,
-            };
+                .every((prevColumnName) =>
+                  row.cellData[
+                    selectedTable.columns.indexOf(prevColumnName)
+                  ].some(
+                    (option) =>
+                      selectedOptions[prevColumnName]?.value === option.value
+                  )
+                ) &&
+              row.cellData[columnIndex].some((option) => option.value === value)
+          )
+          .forEach((row) => {
+            row.cellData[nextColumnIndex].forEach((option) => {
+              const optionToAdd = {
+                value: option.value || "",
+                photo: option.photo || "",
+                is_popular: option.is_popular || false,
+              };
 
-            if (
-              ![...nextColumnOptions].some(
-                (existingOption) => existingOption.value === optionToAdd.value
-              )
-            ) {
-              nextColumnOptions.add(optionToAdd);
-            }
+              if (
+                ![...nextColumnOptions].some(
+                  (existingOption) => existingOption.value === optionToAdd.value
+                )
+              ) {
+                nextColumnOptions.add(optionToAdd);
+              }
+            });
           });
+
+        setNextOptions((prevNextOptions) => ({
+          ...prevNextOptions,
+          [nextColumnName]: Array.from(nextColumnOptions).map((value) => ({
+            ...value,
+            photo: value.photo || "",
+            is_popular: value.is_popular || false,
+          })),
+        }));
+
+        selectedTable.columns.forEach((col) => {
+          if (reachedNextColumn) {
+            setNextOptions((prevNextOptions) => ({
+              ...prevNextOptions,
+              [col]: [],
+            }));
+          }
+
+          // Check if the current column matches the nextColumnName
+          if (col === nextColumnName) {
+            reachedNextColumn = true;
+          }
         });
+
+        setSelectedOptions((prevSelectedOptions) => ({
+          ...prevSelectedOptions,
+          [nextColumnName]: {
+            value: "",
+            photo: "",
+            is_popular: false,
+          },
+        }));
+      }
 
       // Conditionally update hiddenColumns
       setHiddenColumns((prevHiddenColumns) => {
@@ -299,38 +335,6 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
               (colIndex) => colIndex !== columnIndex + 1
             );
       });
-
-      selectedTable.columns.forEach((col) => {
-        if (reachedNextColumn) {
-          setNextOptions((prevNextOptions) => ({
-            ...prevNextOptions,
-            [col]: [],
-          }));
-        }
-
-        // Check if the current column matches the nextColumnName
-        if (col === nextColumnName) {
-          reachedNextColumn = true;
-        }
-      });
-
-      setNextOptions((prevNextOptions) => ({
-        ...prevNextOptions,
-        [nextColumnName]: Array.from(nextColumnOptions).map((value) => ({
-          ...value,
-          photo: value.photo || "",
-          is_popular: value.is_popular || false,
-        })),
-      }));
-
-      setSelectedOptions((prevSelectedOptions) => ({
-        ...prevSelectedOptions,
-        [nextColumnName]: {
-          value: "",
-          photo: "",
-          is_popular: false,
-        },
-      }));
     }
   };
 
@@ -338,32 +342,34 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
     const calculatePrice = () => {
       if (selectedTable && selectedTable.columns && selectedOptions) {
         if (
-          selectedTable.columns.filter(
-            (hiddenColumn) =>
-              !hiddenColumns.includes(
-                selectedTable.columns.indexOf(hiddenColumn)
-              )
-          ).every(
-            (columnName) => selectedOptions[columnName]?.value
-          )
-        ) {
-          const matchingRow = selectedTable.rows.find((row) =>
-            selectedTable.columns.filter(
+          selectedTable.columns
+            .filter(
               (hiddenColumn) =>
                 !hiddenColumns.includes(
                   selectedTable.columns.indexOf(hiddenColumn)
                 )
-            ).every((columnName) => {
-              const selectedValue = selectedOptions[columnName]?.value;
-              const cellDataForColumn =
-                row.cellData[selectedTable.columns.indexOf(columnName)];
-              return (
-                cellDataForColumn &&
-                cellDataForColumn.some(
-                  (option) => option && option.value === selectedValue
-                )
-              );
-            })
+            )
+            .every((columnName) => selectedOptions[columnName]?.value)
+        ) {
+          const matchingRow = selectedTable.rows.find((row) =>
+            selectedTable.columns
+              .filter(
+                (hiddenColumn) =>
+                  !hiddenColumns.includes(
+                    selectedTable.columns.indexOf(hiddenColumn)
+                  )
+              )
+              .every((columnName) => {
+                const selectedValue = selectedOptions[columnName]?.value;
+                const cellDataForColumn =
+                  row.cellData[selectedTable.columns.indexOf(columnName)];
+                return (
+                  cellDataForColumn &&
+                  cellDataForColumn.some(
+                    (option) => option && option.value === selectedValue
+                  )
+                );
+              })
           );
 
           if (matchingRow) {
