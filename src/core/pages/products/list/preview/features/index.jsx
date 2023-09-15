@@ -11,7 +11,7 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
   const [nextOptions, setNextOptions] = useState({});
 
   const [hiddenColumns, setHiddenColumns] = useState([]);
-  console.log("nextOptions", nextOptions);
+  console.log("selectedOptions", selectedOptions);
 
   useEffect(() => {
     const initialSelectedOptions = {};
@@ -61,18 +61,18 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
     setNextOptions(initialNextOptions);
   }, [data]);
 
-  // Use useEffect to remove hidden columns from featureState
-  useEffect(() => {
-    const updatedFeaturesState = { ...featuresState };
+  // // Use useEffect to remove hidden columns from featureState
+  // useEffect(() => {
+  //   const updatedFeaturesState = { ...featuresState };
 
-    hiddenColumns.forEach((hiddenColumnIndex) => {
-      const hiddenColumnName = selectedTable.columns[hiddenColumnIndex];
-      delete updatedFeaturesState[hiddenColumnName];
-    });
+  //   hiddenColumns.forEach((hiddenColumnIndex) => {
+  //     const hiddenColumnName = selectedTable.columns[hiddenColumnIndex];
+  //     delete updatedFeaturesState[hiddenColumnName];
+  //   });
 
-    setFeaturesState(updatedFeaturesState);
-    // eslint-disable-next-line 
-  }, [hiddenColumns, setFeaturesState, selectedTable.columns]);
+  //   setFeaturesState(updatedFeaturesState);
+  //   // eslint-disable-next-line 
+  // }, [hiddenColumns, setFeaturesState, selectedTable.columns]);
 
   const handleTableChange = (value, columnName) => {
     const selectedTableName = value;
@@ -338,12 +338,22 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
     const calculatePrice = () => {
       if (selectedTable && selectedTable.columns && selectedOptions) {
         if (
-          selectedTable.columns.every(
+          selectedTable.columns.filter(
+            (hiddenColumn) =>
+              !hiddenColumns.includes(
+                selectedTable.columns.indexOf(hiddenColumn)
+              )
+          ).every(
             (columnName) => selectedOptions[columnName]?.value
           )
         ) {
           const matchingRow = selectedTable.rows.find((row) =>
-            selectedTable.columns.every((columnName) => {
+            selectedTable.columns.filter(
+              (hiddenColumn) =>
+                !hiddenColumns.includes(
+                  selectedTable.columns.indexOf(hiddenColumn)
+                )
+            ).every((columnName) => {
               const selectedValue = selectedOptions[columnName]?.value;
               const cellDataForColumn =
                 row.cellData[selectedTable.columns.indexOf(columnName)];
@@ -366,7 +376,7 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
     };
 
     calculatePrice();
-  }, [selectedOptions, selectedTable]);
+  }, [selectedOptions, selectedTable, hiddenColumns]);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "5rem" }}>
