@@ -61,18 +61,18 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
     setNextOptions(initialNextOptions);
   }, [data]);
 
-  // // Use useEffect to remove hidden columns from featureState
-  // useEffect(() => {
-  //   const updatedFeaturesState = { ...featuresState };
+  // Use useEffect to remove hidden columns from featureState
+  useEffect(() => {
+    const updatedFeaturesState = { ...featuresState };
 
-  //   hiddenColumns.forEach((hiddenColumnIndex) => {
-  //     const hiddenColumnName = selectedTable.columns[hiddenColumnIndex];
-  //     delete updatedFeaturesState[hiddenColumnName];
-  //   });
+    hiddenColumns.forEach((hiddenColumnIndex) => {
+      const hiddenColumnName = selectedTable.columns[hiddenColumnIndex];
+      delete updatedFeaturesState[hiddenColumnName];
+    });
 
-  //   setFeaturesState(updatedFeaturesState);
-  //   // eslint-disable-next-line
-  // }, [hiddenColumns, setFeaturesState, selectedTable.columns]);
+    setFeaturesState(updatedFeaturesState);
+    // eslint-disable-next-line
+  }, [hiddenColumns, setFeaturesState, selectedTable.columns]);
 
   const handleTableChange = (value, columnName) => {
     const selectedTableName = value;
@@ -208,52 +208,20 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
     }));
 
     const columnIndex = selectedTable.columns.indexOf(columnName);
-    let nextColumnIndex = columnIndex + 1;
-    let nextColumnName = selectedTable.columns[nextColumnIndex];
-    let isCurrentColumnEmpty = true; // Flag to track if the current column is empty
-
+    let nextColumnIndexSecond = columnIndex + 1;
+    let nextColumnName = selectedTable.columns[columnIndex + 1]
+   
     if (columnIndex < selectedTable.columns.length - 1) {
       let nextColumnOptions = new Set();
+     
+     // First task
+      for (
+        let nextColumnIndex = columnIndex + 1;
+        nextColumnIndex < selectedTable.columns.length;
+        nextColumnIndex++
+      ) {
+        let isCurrentColumnEmpty = true;
 
-      selectedTable.rows
-        .filter(
-          (row) =>
-            selectedTable.columns
-              .slice(0, columnIndex)
-              .filter(
-                (prevColumnName) =>
-                  !hiddenColumns.includes(
-                    selectedTable.columns.indexOf(prevColumnName)
-                  )
-              )
-              .every((prevColumnName) =>
-                row.cellData[
-                  selectedTable.columns.indexOf(prevColumnName)
-                ].some(
-                  (option) =>
-                    selectedOptions[prevColumnName]?.value === option.value
-                )
-              ) &&
-            row.cellData[columnIndex].some((option) => option.value === value)
-        )
-        .forEach((row) => {
-          row.cellData[nextColumnIndex].forEach((option) => {
-            // Check if there are non-empty options for this column
-            if (option.value !== "") {
-              isCurrentColumnEmpty = false; // Set to false if a non-empty option is found
-            }
-          });
-        });
-
-      // If isCurrentColumnEmpty is true, move to the next column
-      if (isCurrentColumnEmpty) {
-        nextColumnIndex = selectedTable.columns.indexOf(columnName) + 2;
-        nextColumnName = selectedTable.columns[nextColumnIndex];
-      }    
-
-      let lastColumnIndex = isCurrentColumnEmpty? nextColumnIndex : columnIndex
-
-      if (lastColumnIndex < selectedTable.columns.length - 1) {
         selectedTable.rows
           .filter(
             (row) =>
@@ -277,6 +245,61 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
           )
           .forEach((row) => {
             row.cellData[nextColumnIndex].forEach((option) => {
+              if (option.value !== "") {
+                isCurrentColumnEmpty = false;
+              }
+            });
+          });
+
+        if (!isCurrentColumnEmpty) {
+          // If the column is not empty, you can add the necessary logic here
+          nextColumnIndexSecond = nextColumnIndex
+          nextColumnName = selectedTable.columns[nextColumnIndexSecond];
+          console.log("nextColumnIndex", nextColumnIndex);
+          // Update hiddenColumns correctly using the state updater function
+          setHiddenColumns((prevHiddenColumns) =>
+            prevHiddenColumns.filter((colIndex) => colIndex !== nextColumnIndex)
+          );
+          break; // Exit the loop since you found a non-empty column
+        } else {
+          console.log("Skipped column index", nextColumnIndex); // Log the index of the skipped column
+          // Update hiddenColumns correctly using the state updater function
+          nextColumnName = selectedTable.columns[nextColumnIndex];
+          setHiddenColumns((prevHiddenColumns) => [
+            ...prevHiddenColumns,
+            nextColumnIndex,
+          ]);
+        
+        }
+
+      }
+
+      // Second task
+
+        selectedTable.rows
+          .filter(
+            (row) =>
+              selectedTable.columns
+                .slice(0, columnIndex)
+                .filter(
+                  (prevColumnName) =>
+                    !hiddenColumns.includes(
+                      selectedTable.columns.indexOf(prevColumnName)
+                    )
+                )
+                .every((prevColumnName) =>
+                  row.cellData[
+                    selectedTable.columns.indexOf(prevColumnName)
+                  ].some(
+                    (option) =>
+                      selectedOptions[prevColumnName]?.value === option.value
+                  )
+                ) &&
+              row.cellData[columnIndex].some((option) => option.value === value)
+          )
+          .forEach((row) => {
+            row.cellData[nextColumnIndexSecond].forEach((option) => {
+              console.log("nextColumnIndexSecond", nextColumnIndexSecond);
               const optionToAdd = {
                 value: option.value || "",
                 photo: option.photo || "",
@@ -325,17 +348,6 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
           },
         }));
       }
-
-      // Conditionally update hiddenColumns
-      setHiddenColumns((prevHiddenColumns) => {
-        // Filter out columnIndex + 1 if isCurrentColumnEmpty is false
-        return isCurrentColumnEmpty
-          ? [...prevHiddenColumns, columnIndex + 1]
-          : prevHiddenColumns.filter(
-              (colIndex) => colIndex !== columnIndex + 1
-            );
-      });
-    }
   };
 
   useEffect(() => {
