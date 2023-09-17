@@ -108,10 +108,13 @@ const ProductList = ({ setOpen }) => {
             className="p-2 w-[35%] px-5"
           >
             <div className="w-full flex flex-col h-full">
-              <div className="w-full h-1/2 relative">
+              <div className="w-full h-1/2 flex justify-center items-center">
+
+              <div className="w-[10rem] aspect-square relative">
                 {photo !== "" && (
-                  <img src={photo} alt="" className="w-full h-full absolute" />
+                  <img src={photo} alt="" className="w-full h-full object-contain" />
                 )}
+              </div>
               </div>
               <div className="w-full h-1/2 pt-[5rem] flex justify-center">
                 {options.length > 0 && (
