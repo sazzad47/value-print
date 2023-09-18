@@ -4,6 +4,7 @@ import Toast from "./core/components/Toast";
 import { useRefreshAccessToken } from "./core/user/refreshToken";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "./core/state/api/cart";
+import WhatsApp from "./core/components/whatsapp";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
     <>
       <ItAdmin />
       <Toast />
+      <WhatsApp/>
     </>
   );
 }
