@@ -4,6 +4,7 @@ import { BiChevronRight } from "react-icons/bi";
 import { Typography } from "@mui/material";
 import { Oval } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 const ProductList = ({ setOpen }) => {
   const { data, isLoading } = useGetProductsQuery({});
@@ -97,8 +98,8 @@ const ProductList = ({ setOpen }) => {
                   setOptions(product.options);
                 }}
               >
-                <div className="flex gap-2">
-                  
+                <div className="flex gap-2 items-center">
+                  <FiberManualRecordIcon className="w-[10px] h-[10px]"/>
                 {product.name}
                 </div>
               </div>
