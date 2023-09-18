@@ -198,15 +198,15 @@ export default function Dropdown({
                       <img
                         src={option.photo}
                         alt="option"
-                        width={40}
-                        height={40}
+                        width={30}
+                        height={30}
                       />
                     ) : (
-                      <AiOutlineFileImage className="w-[40px] h-[40px]" />
+                      <AiOutlineFileImage className="w-[30px] h-[30px]" />
                     )}
                   </div>
                   <div className="flex flex-col w-full justify-center">
-                    <h4 className="font-bold text-md"> {option.value} </h4>
+                    <h4 className="font-bold text-xs"> {option.value} </h4>
                     <p className="text-[0.6rem]"> {option?.description} </p>
                   </div>
                   {option.is_popular && (
