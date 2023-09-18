@@ -16,12 +16,14 @@ const CoverPhotos = ({ coverPhotos }) => {
       >
         {coverPhotos.map((img) => {
           return (
-            <SwiperSlide>
-              <img
-                src={img}
-                alt="cover"
-                className="object-cover w-full h-full"
-              />
+            <SwiperSlide className="w-full min-h-full">
+              <div className="w-full h-[20rem] md:h-full">
+                <img
+                  src={img}
+                  alt="cover"
+                  className="object-cover w-full h-full block"
+                />
+              </div>
             </SwiperSlide>
           );
         })}

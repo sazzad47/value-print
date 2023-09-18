@@ -73,7 +73,7 @@ const Preview = () => {
               </div>
               <div className="w-full md:w-1/2 h-full relative order-1 md:order-2 text-gray-900">
                 {data?.cover_photo?.length > 0 ? (
-                  <div className="mb-[3rem] md:mb-0 relative w-full h-full flex items-center justify-end">
+                  <div className="pb-[3rem] md:pb-0 relative w-full h-full flex items-center justify-end">
                     <CoverPhotos coverPhotos={data.cover_photo} />
                   </div>
                 ) : (
