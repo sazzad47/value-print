@@ -26,54 +26,60 @@ const subMenuAnimate = {
   },
 };
 
-export default function Dropdown({colIdx, nextOptions, columnName, handleChange, handleTableChange, featuresState, setFeaturesState }) {
+export default function Dropdown({
+  colIdx,
+  nextOptions,
+  columnName,
+  handleChange,
+  handleTableChange,
+  featuresState,
+  setFeaturesState,
+}) {
   const [isMouse, toggleMouse] = React.useState(false);
   const toggleMouseMenu = () => {
     toggleMouse(!isMouse);
   };
 
   return (
-      <div className="menu-item" onClick={toggleMouseMenu}>
+    <div className="menu-item" onClick={toggleMouseMenu}>
+      <div
+        style={{ border: "1px solid #e5e7eb" }}
+        className={`flex min-w-full cursor-pointer ${
+          isMouse
+            ? "shadow-[0_0_10px_rgba(8,_112,_184,_0.7)]"
+            : "hover:shadow-[0_0_10px_rgba(8,_112,_184,_0.7)]"
+        } justify-between text-gray-600 -z-10 w-full text-sm bg-gray-100 px-3 py-2`}
+      >
+        {featuresState[columnName] || `Select ${columnName}`}
         <div
-          style={{ border: "1px solid #e5e7eb" }}
-          className={`flex min-w-full cursor-pointer ${
-            isMouse
-              ? "shadow-[0_0_10px_rgba(8,_112,_184,_0.7)]"
-              : "hover:shadow-[0_0_10px_rgba(8,_112,_184,_0.7)]"
-          } justify-between text-gray-600 -z-10 w-full text-sm bg-gray-100 px-3 py-2`}
+          className={`input-dropdown ${
+            isMouse ? "active" : ""
+          } text-lg text-white cursor-pointer items-center font-medium`}
+          type="button"
         >
-          {featuresState[columnName] || `Select ${columnName}`}
-          <div
-            className={`input-dropdown ${
-              isMouse ? "active" : ""
-            } text-lg text-white cursor-pointer items-center font-medium`}
-            type="button"
-          >
-            <span className="arrow-input text-gray-700"></span>
-          </div>
+          <span className="arrow-input text-gray-700"></span>
         </div>
+      </div>
 
-        <motion.div
-          className="sub-menu bg-white text-gray-900 shadow-[0px_2.0px_2.0px_rgba(0,0,0,0.38)]"
-          initial="exit"
-          animate={isMouse ? "enter" : "exit"}
-          variants={subMenuAnimate}
-        >
-          <div className="sub-menu-background" />
-          <div className="sub-menu-container">
+      <motion.div
+        className="sub-menu bg-white max-h-[15rem] z-10 overflow-y-auto text-gray-900 shadow-[0px_2.0px_2.0px_rgba(0,0,0,0.38)]"
+        initial="exit"
+        animate={isMouse ? "enter" : "exit"}
+        variants={subMenuAnimate}
+      >
+        <div className="sub-menu-background" />
+        <div className="sub-menu-container">
           {nextOptions[columnName] &&
-                    nextOptions[columnName].map((option, index) => (
-          
+            nextOptions[columnName].map((option, index) => (
               <div
-              onClick={() => {
-                console.log("index", colIdx);
-                if (colIdx === 0) {
-                  handleTableChange(option.value, columnName);
-                } else {
-                  handleChange(option.value, columnName);
-                }
-              }}
-              
+                onClick={() => {
+                  console.log("index", colIdx);
+                  if (colIdx === 0) {
+                    handleTableChange(option.value, columnName);
+                  } else {
+                    handleChange(option.value, columnName);
+                  }
+                }}
                 key={index}
                 style={{
                   borderBottom:
@@ -120,8 +126,8 @@ export default function Dropdown({colIdx, nextOptions, columnName, handleChange,
                 )}
               </div>
             ))}
-          </div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
+    </div>
   );
 }
