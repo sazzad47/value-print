@@ -90,7 +90,7 @@ export default function Dropdown({
           variants={subMenuAnimate}
         >
           <p className="text-center mb-5 md:mb-2">Please select colour</p>
-          <div className="grid grid-cols-3 md:grid-cols-3 gap-2">
+          <div className="grid grid-cols-4 md:grid-cols-4 gap-2">
             {nextOptions[columnName] &&
               nextOptions[columnName].map((option, index) => (
                 <div
