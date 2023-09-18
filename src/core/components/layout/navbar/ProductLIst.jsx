@@ -62,7 +62,7 @@ const ProductList = ({ setOpen }) => {
                   borderTop:
                     value === index ? "1px solid #701a75" : "1px solid #fce7f3",
                 }}
-                className={`group w-full flex justify-between items-center ${
+                className={`group cursor-pointer w-full flex justify-between items-center ${
                   value === index
                     ? "bg-fuchsia-900 text-white"
                     : "text-gray-900"
@@ -85,8 +85,8 @@ const ProductList = ({ setOpen }) => {
           <div className="w-full grid grid-cols-2 h-[3rem] gap-5 px-5">
             {/* Products */}
             {products.map((product) => (
-              <li
-                className="text-gray-900 text-sm h-[2rem]"
+              <div
+                className="text-gray-900 px-2 text-sm h-[2rem] flex items-center cursor-pointer hover:bg-gray-300"
                 key={product.id}
                 onClick={() => {
                   navigate(`/products/list/${product.id}`);
@@ -97,8 +97,11 @@ const ProductList = ({ setOpen }) => {
                   setOptions(product.options);
                 }}
               >
+                <div className="flex gap-2">
+                  
                 {product.name}
-              </li>
+                </div>
+              </div>
             ))}
           </div>
           </div>
