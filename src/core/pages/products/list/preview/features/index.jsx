@@ -412,7 +412,7 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
           text="1. Choose your options"
         />
         <div className="px-[20px] py-[20px]">
-          <Grid className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
+          <Grid className="w-full grid grid-cols-1 gap-5">
             {selectedTable?.columns.map((columnName, colIdx) => {
               if (hiddenColumns.includes(colIdx)) {
                 return null; // Skip rendering the column
