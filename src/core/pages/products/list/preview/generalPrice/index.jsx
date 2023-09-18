@@ -34,10 +34,8 @@ const GeneralPrice = ({
       delivery_type: delivery,
     });
 
-    setOpen(true)
+    setOpen(true);
   };
-
-   
 
   function calculateDeliveryCharge(quantity) {
     // Define the known quantities and delivery charges
@@ -57,10 +55,10 @@ const GeneralPrice = ({
     // Ensure the delivery charge is within the desired range (0 to 10)
     return Math.max(20, Math.min(30, deliveryCharge));
   }
-  
+
   const thirtyPercentIndex = Math.ceil(price?.length * 0.3);
   const thirtyPercentPrice = price?.slice(0, thirtyPercentIndex);
-  
+
   return (
     <>
       <div className="w-full flex justify-between my-[2rem]">
@@ -92,7 +90,11 @@ const GeneralPrice = ({
       <div className="w-full flex">
         <div className="w-[30%] md:w-[25%] flex flex-col justify-between gap-2">
           <div className="w-full flex justify-center">
-            <img src={deliveryPhoto} alt="" className="w-[60px] h-[60px] md:w-[100px] md:h-[100px]" />
+            <img
+              src={deliveryPhoto}
+              alt=""
+              className="w-[60px] h-[60px] md:w-[100px] md:h-[100px]"
+            />
           </div>
           <div
             style={{
@@ -129,7 +131,9 @@ const GeneralPrice = ({
               className="flex flex-col"
             >
               <div className="flex flex-col h-[6.7rem]">
-                <h3 className="text-sm md:text-lg text-gray-800 text-center">Express</h3>
+                <h3 className="text-sm md:text-lg text-gray-800 text-center">
+                  Express
+                </h3>
                 <p className="font-medium text-xs md:text-sm text-gray-600 text-center">
                   {" "}
                   2 working days (excluding weekends)
@@ -182,8 +186,10 @@ const GeneralPrice = ({
                     <div className="text-gray-700 text-xs font-bold">
                       {" "}
                       S$
-                      {parseFloat(item.price) +
-                        calculateDeliveryCharge(item.quantity)}{" "}
+                      {(
+                        parseFloat(item.price) +
+                        calculateDeliveryCharge(item.quantity)
+                      ).toFixed(2)}{" "}
                     </div>
                     <div className="text-gray-700 text-[0.6rem]">
                       {" "}
@@ -207,7 +213,9 @@ const GeneralPrice = ({
               className="flex flex-col"
             >
               <div className="flex flex-col h-[6.7rem]">
-                <h3 className="text-sm md:text-lg text-gray-800 text-center">Standard</h3>
+                <h3 className="text-sm md:text-lg text-gray-800 text-center">
+                  Standard
+                </h3>
                 <p className="font-medium text-xs md:text-sm text-gray-600 text-center">
                   {" "}
                   7 working days (excluding weekends)
@@ -254,7 +262,7 @@ const GeneralPrice = ({
                   <div className="flex flex-col text-center">
                     <div className="text-gray-700 text-xs font-bold">
                       {" "}
-                      S${parseFloat(item.price) + 10}{" "}
+                      S${(parseFloat(item.price) + 10).toFixed(2)}{" "}
                     </div>
                     <div className="text-gray-700 text-[0.6rem]">
                       {" "}
@@ -276,7 +284,6 @@ const GeneralPrice = ({
         setFeaturesState={setFeaturesState}
         open={open}
         setOpen={setOpen}
-
       />
     </>
   );
