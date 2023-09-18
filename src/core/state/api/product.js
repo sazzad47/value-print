@@ -107,8 +107,8 @@ export const productApi = createApi({
       }),
     }),
     searchByCategory: builder.query({
-      query: ({category}) => ({
-        url: `list/${category}/`,
+      query: ({name}) => ({
+        url: `list/${name}/`,
         method: "GET",
         headers: {
           "Content-type": "application/json",

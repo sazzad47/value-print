@@ -14,7 +14,7 @@ const SearchBar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    navigate(`/products/${searchTerm}`)
+    navigate(`/products/search/${searchTerm}`)
     
   };
 

@@ -3,7 +3,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { BiLogoFacebookSquare } from "react-icons/bi";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useGetCategoriesQuery } from "../../../state/api/product";
+import { useGetProductsQuery } from "../../../state/api/product";
 import CopyRight from "./CopyRight";
 import { MasterCard, Paypal, Visa } from "./SvgIcons";
 import logo from "../../../assets/logo.png";
@@ -13,7 +13,7 @@ import { Oval } from "react-loader-spinner";
 import { BsTwitter } from "react-icons/bs";
 
 const Footer = () => {
-  const { data, isLoading } = useGetCategoriesQuery({});
+  const { data, isLoading } = useGetProductsQuery({});
 
   return (
     <>
@@ -48,7 +48,7 @@ const Footer = () => {
                     <Link
                       className="no-underline text-gray-800"
                       key={index}
-                      to={`/products/${item.name.replace("/", "-")}`}
+                      to={`/products/list/${item.id}`}
                     >
                       <div> {item.name} </div>
                     </Link>

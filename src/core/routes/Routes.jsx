@@ -44,7 +44,7 @@ const publicRoutes = [
   { path: "/products/:id", component: <ProductDetails /> },
   { path: "/products/list", component: <ProductList /> },
   { path: "/products/list/:id", component: <ViewProduct /> },
-  { path: "/products/:category", component: <Categories /> },
+  { path: "/products/search/:name", component: <Categories /> },
   { path: "/faq", component: <Faq /> },
   { path: "/cart", component: <Cart /> },
   { path: "/payment-success", component: <CheckoutMessage /> },
