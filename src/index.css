@@ -412,3 +412,34 @@ select {
   margin-left: 10px;
   border-top: 1px solid #d6d3d1;
 }
+
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: #964c47;
+  padding: 8px 20px;
+  border-radius: 100%;
+  color: white;
+}
+.swiper-button-next::after {
+  font-size: 10px !important;
+  color: white;
+}
+.swiper-button-prev::after {
+  font-size: 10px !important;
+  color: white;
+}
+
+@media screen and (max-width: 778px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+  padding: 1px 5px;
+  }
+  .swiper-button-next::after {
+    font-size: 10px;
+    color: white;
+  }
+  .swiper-button-prev::after {
+    font-size: 10px;
+    color: white;
+  }
+}

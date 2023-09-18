@@ -7,6 +7,7 @@ import Description from "./description";
 import Features from "./features";
 import SideNote from "./sidenote";
 import Service from "./service";
+import CoverPhotos from "./slider";
 
 const Preview = () => {
   const params = useParams();
@@ -42,7 +43,7 @@ const Preview = () => {
       }));
     }
   }, [data]);
-  
+
   return (
     <>
       {isGetProductLoading ? (
@@ -61,23 +62,29 @@ const Preview = () => {
           />
         </div>
       ) : (
-        <div className="px-[1rem] md:px-[5rem] py-[2rem] md:py-[5rem]">
+        <div className="w-full px-[1rem] md:px-[5rem] py-[2rem] md:py-[5rem]">
           <div className="w-full flex justify-between">
             <Header title={`${data.name}`} />
           </div>
           <div className="mt-[1rem] flex flex-col gap-5">
-            <div className="flex flex-col md:flex-row h-auto md:h-[25rem]">
-              <div className="h-full w-full bg-red-200 order-2 md:order-1">
+            <div className="w-full flex flex-col md:flex-row h-auto md:h-[25rem]">
+              <div className="h-full w-full md:w-1/2 bg-red-200 order-2 md:order-1">
                 <Description data={data} />
               </div>
-              <div className="w-full h-full relative order-1 md:order-2 text-gray-900">
-                <div className="mb-[3rem] md:mb-0 relative w-full h-full flex items-center justify-center">
-                  <img
-                    src={data.cover}
-                    alt="cover"
-                    className="object-contain w-auto h-auto max-w-full max-h-full"
-                  />
-                </div>
+              <div className="w-full md:w-1/2 h-full relative order-1 md:order-2 text-gray-900">
+                {data?.cover_photo?.length > 0 ? (
+                  <div className="mb-[3rem] md:mb-0 relative w-full h-full flex items-center justify-end">
+                    <CoverPhotos coverPhotos={data.cover_photo} />
+                  </div>
+                ) : (
+                  <div className="mb-[3rem] md:mb-0 relative w-full h-full flex items-center justify-center">
+                    <img
+                      src={data.cover}
+                      alt="cover"
+                      className="object-contain w-auto h-auto max-w-full max-h-full"
+                    />
+                  </div>
+                )}
               </div>
             </div>
             <div className="relative h-auto flex w-full gap-5 mt-10">
@@ -89,19 +96,19 @@ const Preview = () => {
                     setServices={setServices}
                   />
                 )}
-          
-                  <Features
-                    price={price}
-                    setPrice={setPrice}
-                    features={features}
-                    setFeatures={setFeatures}
-                    subvariants={subvariants}
-                    setSubvariants={setSubvariants}
-                    featuresState={featuresState}
-                    setFeaturesState={setFeaturesState}
-                    variants={variants}
-                    data={data.pricing}
-                  />
+
+                <Features
+                  price={price}
+                  setPrice={setPrice}
+                  features={features}
+                  setFeatures={setFeatures}
+                  subvariants={subvariants}
+                  setSubvariants={setSubvariants}
+                  featuresState={featuresState}
+                  setFeaturesState={setFeaturesState}
+                  variants={variants}
+                  data={data.pricing}
+                />
               </div>
               <div className="hidden sticky min-w-[30%] min-h-[60vh] top-0 md:flex justify-center items-center">
                 <SideNote features={features} featuresState={featuresState} />
