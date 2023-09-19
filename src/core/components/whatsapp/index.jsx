@@ -13,6 +13,7 @@ import React, {
   import lightBG from "./assets/bg-chat-tile-dark.png";
   import dummyAvatar from "./assets/uifaces-avatar.jpg";
   import SoundBeep from "./assets/whatsapp-notification.mp3";
+import { Avatar } from "@mui/material";
   
   
   export default function FloatingWhatsApp({
@@ -24,7 +25,6 @@ import React, {
   
     phoneNumber = "+65 9012 1219",
     accountName = "Ricky",
-    avatar = dummyAvatar,
     statusMessage = "Typically replies within 1 hour",
     chatMessage = "Hello there! 🤝 \nHow can we help you?",
     placeholder = "Type a message..",
@@ -198,7 +198,7 @@ import React, {
         >
           <header className={css.chatHeader}>
             <div className={css.avatar}>
-              <img src={avatar} width="60" height="60" alt="whatsapp-avatar" />
+              <Avatar width="60" height="60" />
             </div>
             <div className={css.status}>
               <span className={css.statusTitle}>{accountName}</span>
