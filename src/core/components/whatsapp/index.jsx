@@ -11,9 +11,8 @@ import React, {
   
   import darkBG from "./assets/bg-chat-tile-light.png";
   import lightBG from "./assets/bg-chat-tile-dark.png";
-  import dummyAvatar from "./assets/uifaces-avatar.jpg";
   import SoundBeep from "./assets/whatsapp-notification.mp3";
-import { Avatar } from "@mui/material";
+  import { Avatar } from "@mui/material";
   
   
   export default function FloatingWhatsApp({
