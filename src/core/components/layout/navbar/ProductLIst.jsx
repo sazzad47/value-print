@@ -55,7 +55,7 @@ const ProductList = ({ setOpen }) => {
       ) : (
         <div className="max-w-screen-xl px-4 pt-[3rem] pb-[2rem] mx-auto text-gray-900 md:px-6 flex bg-gray-100 h-full">
           {/* Vertical tabs */}
-          <div className="w-[20%] h-[70vh] max-h-[70vh] overflow-y-auto bg-white flex flex-col items-start">
+          <div className="w-[20%] h-auto overflow-y-auto bg-white flex flex-col items-start">
             {uniqueCategories.map((category, index) => (
               <div
                 key={index}
@@ -80,7 +80,7 @@ const ProductList = ({ setOpen }) => {
               </div>
             ))}
           </div>
-          <div className="w-[45%] h-[70vh] max-h-[70vh] overflow-y-auto">
+          <div className="w-[45%] h-auto overflow-y-auto">
 
           {/* Tab panel */}
           <div className="w-full grid grid-cols-2 h-[3rem] gap-5 px-5">
