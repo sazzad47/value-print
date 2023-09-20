@@ -55,7 +55,7 @@ const ProductList = () => {
       ) : (
         <div className="max-w-screen-xl pb-[2rem] mx-auto text-gray-900 flex h-full">
           {/* Vertical tabs */}
-          <div className="w-[20%] h-[70vh] max-h-[70vh] overflow-y-auto sticky bg-pink-50 flex flex-col items-start">
+          <div className="w-[20%] h-[45vh] max-h-[45vh] overflow-y-auto sticky bg-pink-50 flex flex-col items-start">
             {uniqueCategories.map((category, index) => (
               <div
                 key={index}
