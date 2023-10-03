@@ -4,14 +4,15 @@ export const uploadToCloudinary = (fileList, onProgress) => {
     const urls = [];
 
     const uploaders = Array.from(fileList).map((file) => {
+     
       return new Promise((resolve, reject) => {
-        if (!process.env.REACT_APP_CLOUD_API || !process.env.REACT_APP_CLOUD_UPLOAD_PRESET || !process.env.REACT_APP_CLOUD_NAME) {
+        if (!process.env.REACT_APP_CLOUD_API_KEY || !process.env.REACT_APP_CLOUD_UPLOAD_PRESET || !process.env.REACT_APP_CLOUD_NAME) {
           reject(new Error("Cloudinary environment variables not defined."));
           return;
         }
 
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", process.env.REACT_APP_CLOUD_API);
+        xhr.open("POST", process.env.REACT_APP_CLOUD_API_KEY);
         xhr.onload = () => {
           const response = JSON.parse(xhr.responseText);
           console.log('responseCloud', response)
