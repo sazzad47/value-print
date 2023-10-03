@@ -10,6 +10,7 @@ import Service from "./service";
 import CoverPhotos from "./slider";
 
 const Preview = () => {
+  console.log('process.env.REACT_APP_CLOUD_API_KEY', process.env.REACT_APP_CLOUD_API_KEY)
   const params = useParams();
   const { id } = params;
   const [searchParams] = useSearchParams();
