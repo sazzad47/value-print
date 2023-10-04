@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-import Service from "./Service";
 import Product from "./products";
 import Reviews from "./reviews";
 import Banner from "./banner";
 import BottomBanner from "./bottomBanner";
 import WhyLove from "./WhyLove";
-import About from "./About";
 import { useLocation } from "react-router-dom";
 import Quotation from "./quote";
 import Faq from "./faq";
 // import Blogs from "./blogs";
+
 
 const Home = () => {
   const location = useLocation();
@@ -25,16 +24,16 @@ const Home = () => {
   return (
     <div className="z-[-1]">
       <Banner />
-      <About />
-      <Service />
+      {/* <About /> */}
+      {/* <Service /> */}
       <div id="product-section">
         <Product />
       </div>
       <Reviews />
       <WhyLove />
       <Quotation/>
-      <Faq/>
       {/* <Blogs/> */}
+      <Faq/>
       <BottomBanner />
     </div>
   );

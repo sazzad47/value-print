@@ -1,63 +1,37 @@
 import React from "react";
-import Carousel from "better-react-carousel";
-import { sliderImage } from "./sliderImage";
 
-const breakpoints = [
-  {
-    breakpoint: 400,
-    cols: 1,
-    rows: 1,
-    gap: 2,
-    loop: true,
-    autoplay: 3000,
-  },
-  {
-    breakpoint: 1024,
-    cols: 3,
-    rows: 1,
-    gap: 10,
-    loop: true,
-    autoplay: 3000,
-  },
-  {
-    breakpoint: 1280,
-    cols: 4,
-    rows: 1,
-    gap: 10,
-    loop: true,
-    autoplay: 3000,
-  },
-];
-
-const Gallery = () => {
+const Blogs = () => {
   return (
-    <div className="w-full mt-[3rem] h-auto px-[1rem] md:px-[5rem] py-[2rem] md:py-[5rem] bg-white">
-      <div className="w-full flex flex-col gap-[3rem]">
-        <div>
-          <h3 className="text-3xl font-bold text-center text-fuchsia-900">
-            Blogs
-          </h3>
-          <h3 className="text-2xl font-medium text-center text-pink-600 mt-2">
-            Dive into the Artistry of Printing Services
-          </h3>
-        </div>
-        <Carousel
-          hideArrow={true}
-          showDots={true}
-          responsiveLayout={breakpoints}
-        >
-          {sliderImage.map((slide, index) => (
-            <Carousel.Item key={index}>
-              <div className="flex flex-col items-center gap-5">
-                <img className="w-full h-[200px]" src={slide.urls} alt="" />
-                <h2 className="text-white text-2xl">{slide.title}</h2>
-              </div>
-            </Carousel.Item>
-          ))}
-        </Carousel>
+    <section class="w-screen py-[2rem] md:py-[5rem]">
+      <div>
+        <h3 className="text-3xl font-bold text-center text-fuchsia-900">
+          Explore Our Blog
+        </h3>
       </div>
-    </div>
+      <div class="mx-auto grid max-w-screen-lg grid-cols-1 gap-5 p-5 sm:grid-cols-2 md:grid-cols-3 lg:gap-10">
+        <article class="group h-full overflow-hidden rounded-lg border-2 border-gray-200 border-opacity-60 shadow-lg">
+          <img
+            class="w-full transform object-cover object-center transition duration-500 ease-in-out group-hover:scale-105 md:h-36 lg:h-48"
+            src="https://images.unsplash.com/photo-1611002214172-792c1f90b59a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
+            alt="blog"
+          />
+          <h2 class="title-font inline-block cursor-pointer px-6 pt-4 pb-1 text-xs font-semibold uppercase tracking-widest text-orange-600 hover:font-bold">
+            Cities
+          </h2>
+          <div class="py-1 px-6">
+            <h1 class="title-font mb-3 inline-block cursor-pointer text-xl capitali font-extrabold tracking-wide text-gray-800">
+              How to get around in New York
+            </h1>
+            <p class="line-clamp-6 mb-3 cursor-pointer overflow-hidden leading-relaxed text-gray-500">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil,
+              maxime. Accusamus qui incidunt est rem at corrupti, earum fugiat
+              iure.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
   );
 };
 
-export default Gallery;
+export default Blogs;
