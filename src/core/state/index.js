@@ -8,6 +8,7 @@ const initialState = {
   alert: {show: false, title: null, text: null, icon: null, showConfirmButton: true, confirmButtonText: null, onConfirmClick: null},
   category: {isDeleted: false, isEdited: false, isCreated: false},
   features: {},
+  model: "",
 };
 
 export const globalSlice = createSlice({
@@ -37,10 +38,13 @@ export const globalSlice = createSlice({
         ...state.category,
         ...action.payload
       };
+    },
+    setModel: (state, action) => {
+      state.model = action.payload
     },    
   },
 });
 
-export const { setMode, setUserToken, unSetUserToken, handleNotification, handleAlert, setCategory, handleFileLoading } = globalSlice.actions;
+export const { setMode, setUserToken, unSetUserToken, handleNotification, handleAlert, setCategory, handleFileLoading, setModel } = globalSlice.actions;
 
 export default globalSlice.reducer;

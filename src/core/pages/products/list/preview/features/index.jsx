@@ -3,6 +3,7 @@ import GeneralPlaceholer from "../../../../../components/GeneralPlaceholer";
 import GeneralPrice from "../generalPrice";
 import { Box, Grid, Paper } from "@mui/material";
 import Dropdown from "../generalFeatures/Dropdown";
+import { useSelector } from "react-redux";
 
 function PricingOptions({ data, featuresState, setFeaturesState }) {
   const [selectedTable, setSelectedTable] = useState(data[0]);
@@ -11,7 +12,8 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
   const [nextOptions, setNextOptions] = useState({});
 
   const [hiddenColumns, setHiddenColumns] = useState([]);
-  console.log("selectedOptions", selectedOptions);
+  const model = useSelector((state) => state.global.model);
+ 
 
   useEffect(() => {
     const initialSelectedOptions = {};
@@ -75,6 +77,7 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
   }, [hiddenColumns, setFeaturesState, selectedTable.columns]);
 
   const handleTableChange = (value, columnName) => {
+    console.log('value, columnname', value, columnName)
     const selectedTableName = value;
     const selectedTableData = data.find(
       (table) => table.tableName === selectedTableName
@@ -255,14 +258,14 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
           // If the column is not empty, you can add the necessary logic here
           nextColumnIndexSecond = nextColumnIndex
           nextColumnName = selectedTable.columns[nextColumnIndexSecond];
-          console.log("nextColumnIndex", nextColumnIndex);
+         
           // Update hiddenColumns correctly using the state updater function
           setHiddenColumns((prevHiddenColumns) =>
             prevHiddenColumns.filter((colIndex) => colIndex !== nextColumnIndex)
           );
           break; // Exit the loop since you found a non-empty column
         } else {
-          console.log("Skipped column index", nextColumnIndex); // Log the index of the skipped column
+        
           // Update hiddenColumns correctly using the state updater function
           nextColumnName = selectedTable.columns[nextColumnIndex];
           setHiddenColumns((prevHiddenColumns) => [
@@ -299,7 +302,7 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
           )
           .forEach((row) => {
             row.cellData[nextColumnIndexSecond].forEach((option) => {
-              console.log("nextColumnIndexSecond", nextColumnIndexSecond);
+             
               const optionToAdd = {
                 value: option.value || "",
                 photo: option.photo || "",
@@ -395,6 +398,13 @@ function PricingOptions({ data, featuresState, setFeaturesState }) {
 
     calculatePrice();
   }, [selectedOptions, selectedTable, hiddenColumns]);
+
+  useEffect(()=> {
+    if (model) {
+      handleTableChange(model, "Model")
+    }
+    // eslint-disable-next-line 
+  },[])
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "5rem" }}>
