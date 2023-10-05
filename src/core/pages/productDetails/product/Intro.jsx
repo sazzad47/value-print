@@ -8,6 +8,9 @@ import Typography from "@mui/material/Typography";
 import Faqs from "./Faqs";
 import Ideas from "./Ideas";
 import MayLike from "./MayLike";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setModel } from "../../../state";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -43,6 +46,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export default function Intro({ product, data }) {
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(
     product.features.map((_, index) => `panel${index + 1}`)
   );
@@ -54,6 +58,10 @@ export default function Intro({ product, data }) {
         : expanded.filter((item) => item !== panel)
     );
   };
+  
+  const handleSelectModel = (model)=> {
+    dispatch(setModel(model))
+  }
 
   return (
     <div className="h-full flex flex-col justify-between">
@@ -83,14 +91,28 @@ export default function Intro({ product, data }) {
                         key={`value${valueIndex}`}
                         className="flex flex-col gap-2"
                       >
-                        <div className="w-full bg-gray-300 p-5 flex items-center justify-center">
-                          <img
-                            src={valueItem.photo}
-                            alt=""
-                            className="w-full aspect-auto"
-                          />
-                        </div>
-                        <h3 className="font-semibold"> {valueItem.title} </h3>
+                        <Link
+                          style={{ textDecoration: "none" }}
+                          to={`/products/list/${product.id}`}
+                        >
+                          <div onClick={()=> handleSelectModel(valueItem.title)} className="w-full cursor-pointer bg-gray-300 p-5 flex items-center justify-center">
+                            <img
+                              src={valueItem.photo}
+                              alt=""
+                              className="w-full aspect-auto"
+                            />
+                          </div>
+                        </Link>
+                        <Link
+                          style={{ textDecoration: "none" }}
+                          to={`/products/list/${product.id}`}
+                        >
+                          {" "}
+                          <h3 className="cursor-pointer font-semibold">
+                            {" "}
+                            {valueItem.title}{" "}
+                          </h3>{" "}
+                        </Link>
                         {valueItem.features.map((feature, featureIndex) => (
                           <ul className="ml-4" key={`value${featureIndex}`}>
                             <li>{feature}</li>
